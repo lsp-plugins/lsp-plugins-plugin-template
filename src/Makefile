@@ -106,7 +106,7 @@ depend: $(CXX_DEPS)
 	    $(eval SED_RULES += s/$(shell echo "$($(dep)_BIN)" | sed "s/\\//\\\\\//g")/\\$$$$\\($(dep)_BIN\\)/g;)\
 	  )\
 	)
-	cat $(CXX_DEPS) | sed -E "$(SED_RULES)" >Makefile.d
+	$(if $(CXX_DEPS),cat $(CXX_DEPS),echo "") | sed -E "$(SED_RULES)" >Makefile.d
 
 # Compilation targets
 compile: $(ARTIFACT_OBJ)

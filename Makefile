@@ -82,17 +82,11 @@ prune: clean
 # Configuration-related targets
 .PHONY: config help chkconfig
 
-CONFIG_VARS = \
-    CONFIG="$(CONFIG)" \
-    PLUGINS="$(PLUGINS)" \
-    PROJECT="$(PROJECT)" \
-    MODULES="$(MODULES)"
-
 testconfig:
-	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)" $(CONFIG_VARS) TEST="1" -$(MAKEFLAGS)
+	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)" CONFIG="$(CONFIG)" TEST="1" -$(MAKEFLAGS)
 
 config:
-	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)" $(CONFIG_VARS) -$(MAKEFLAGS)
+	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)" CONFIG="$(CONFIG)" -$(MAKEFLAGS)
 
 # Release-related targets
 .PHONY: distsrc
