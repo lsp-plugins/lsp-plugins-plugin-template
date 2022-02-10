@@ -185,6 +185,7 @@ toolvars:
 	echo "  INCLUDE                   Additional paths for include files"
 	echo "  LD                        Linker execution command line for target build"
 	echo "  LDFLAGS                   Linker flags for merging object files for target build"
+	echo "  PHP                       Installed PHP interpreter tool for building documentation"
 	echo "  PKG_CONFIG                Installed package management tool for target build"
 	echo "  SO_FLAGS                  Flags to link shared object/library files for target build"
 	echo ""
