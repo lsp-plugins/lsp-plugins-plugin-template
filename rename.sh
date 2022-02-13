@@ -71,6 +71,8 @@ SOURCE_FILES_TO_UPDATE=
 SOURCE_FILES_TO_UPDATE+=`find include -iname *plugin_template*.h`
 SOURCE_FILES_TO_UPDATE+=" "
 SOURCE_FILES_TO_UPDATE+=`find src -iname *plugin_template*.cpp`
+SOURCE_FILES_TO_UPDATE+=" "
+SOURCE_FILES_TO_UPDATE+=`find src -iname *plugin_template*.php`
 
 echo "Files to update: ${SOURCE_FILES_TO_UPDATE}"
 
