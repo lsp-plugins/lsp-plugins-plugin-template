@@ -49,7 +49,7 @@ namespace lsp
             return new plugin_template(meta);
         }
 
-        static plug::Factory factory(plugin_factory, plugins, 3);
+        static plug::Factory factory(plugin_factory, plugins, 2);
 
         //---------------------------------------------------------------------
         // Implementation
