@@ -87,6 +87,15 @@ namespace lsp
 
         static const int plugin_template_classes[] = { C_DELAY, -1 };
 
+        const meta::bundle_t plugin_template_bundle =
+        {
+            "plugin_template",
+            "Plugin Template",
+            B_UTILITIES,
+            "", // TODO: provide ID of the video on YouTube
+            "" // TODO: write plugin description, should be the same to the english version in 'bundles.json'
+        };
+
         const plugin_t plugin_template_mono =
         {
             "Pluginschablone Mono",
@@ -96,7 +105,7 @@ namespace lsp
             "plugin_template_mono",
             LSP_LV2_URI("plugin_template_mono"),
             LSP_LV2UI_URI("plugin_template_mono"),
-            "----",         // TODO: fill valid VST2 ID (4 lower-case letters/digits)
+            "----",         // TODO: fill valid VST2 ID (4 letters/digits)
             0,              // TODO: fill valid LADSPA identifier (positive decimal integer)
             LSP_LADSPA_URI("plugin_template_mono"),
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
@@ -105,7 +114,8 @@ namespace lsp
             plugin_template_mono_ports,
             "template/plugin.xml",
             NULL,
-            mono_plugin_port_groups
+            mono_plugin_port_groups,
+            &plugin_template_bundle
         };
 
         const plugin_t plugin_template_stereo =
@@ -117,8 +127,8 @@ namespace lsp
             "plugin_template_stereo",
             LSP_LV2_URI("plugin_template_stereo"),
             LSP_LV2UI_URI("plugin_template_stereo"),
-            "----",         // TODO: fill valid VST2 ID (4 lower-case letters/digits)
-            0,              // TODO: fill valid LADSPA identifier (positive ecimal integer)
+            "----",         // TODO: fill valid VST2 ID (4 letters/digits)
+            0,              // TODO: fill valid LADSPA identifier (positive decimal integer)
             LSP_LADSPA_URI("plugin_template_stereo"),
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
             plugin_template_classes,
@@ -126,7 +136,8 @@ namespace lsp
             plugin_template_stereo_ports,
             "template/plugin.xml",
             NULL,
-            stereo_plugin_port_groups
+            stereo_plugin_port_groups,
+            &plugin_template_bundle
         };
     } /* namespace meta */
 } /* namespace lsp */

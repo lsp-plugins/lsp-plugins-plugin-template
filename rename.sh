@@ -73,6 +73,8 @@ SOURCE_FILES_TO_UPDATE+=" "
 SOURCE_FILES_TO_UPDATE+=`find src -iname *plugin_template*.cpp`
 SOURCE_FILES_TO_UPDATE+=" "
 SOURCE_FILES_TO_UPDATE+=`find src -iname *plugin_template*.php`
+SOURCE_FILES_TO_UPDATE+=" "
+SOURCE_FILES_TO_UPDATE+=`find res -iname *.json`
 
 echo "Files to update: ${SOURCE_FILES_TO_UPDATE}"
 
@@ -84,6 +86,8 @@ do
   sed -E -i "s/LSP_PLUGINS_PLUGIN_TEMPLATE/${ARTIFACT_ID}/g" "$file"
   sed -E -i "s/PLUGIN_TEMPLATE/${PLUGIN_NAME_SCORE_UPPER}/g" "$file"
   new_file=`echo "$file" | sed -E "s/plugin_template/${PLUGIN_NAME_SCORE}/g"`
-  mv $file $new_file
+  if [ "$file" != "$new_file" ]; then
+    mv "$file" "$new_file"
+  fi;
 done;
 
