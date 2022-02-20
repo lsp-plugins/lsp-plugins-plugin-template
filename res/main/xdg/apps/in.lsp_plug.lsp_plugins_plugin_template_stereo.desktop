@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=TODO: Template Plugin
+GenericName=TODO: Template Plugin
+Comment=TODO: add description what plugin does
+Exec=lsp-plugins-plugin-template-stereo
+Icon=lsp-plugins
+Terminal=false
+StartupNotify=false
+Keywords=audio;sound;jackd;lsp-plugins;

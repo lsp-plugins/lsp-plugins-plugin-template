@@ -68,6 +68,8 @@ do
 done;
 
 SOURCE_FILES_TO_UPDATE=
+SOURCE_FILES_TO_UPDATE+=".project .cproject"
+SOURCE_FILES_TO_UPDATE+=" "
 SOURCE_FILES_TO_UPDATE+=`find include -iname *plugin_template*.h`
 SOURCE_FILES_TO_UPDATE+=" "
 SOURCE_FILES_TO_UPDATE+=`find src -iname *plugin_template*.cpp`
@@ -75,6 +77,8 @@ SOURCE_FILES_TO_UPDATE+=" "
 SOURCE_FILES_TO_UPDATE+=`find src -iname *plugin_template*.php`
 SOURCE_FILES_TO_UPDATE+=" "
 SOURCE_FILES_TO_UPDATE+=`find res -iname *.json`
+SOURCE_FILES_TO_UPDATE+=" "
+SOURCE_FILES_TO_UPDATE+=`find res -iname *.desktop`
 
 echo "Files to update: ${SOURCE_FILES_TO_UPDATE}"
 
