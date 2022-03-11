@@ -39,9 +39,10 @@ include $(BASEDIR)/plugins.mk
 MERGED_DEPENDENCIES        := \
   $(DEPENDENCIES) \
   $(TEST_DEPENDENCIES) \
-  $(PLUGIN_DEPENDENCIES)
+  $(PLUGIN_DEPENDENCIES) \
+  $(PLUGIN_SHARED)
 UNIQ_MERGED_DEPENDENCIES   := $(filter-out $(ARTIFACT_ID),$(call uniq, $(MERGED_DEPENDENCIES)))
-UNIQ_ALL_DEPENDENCIES      := $(filter-out $(ARTIFACT_ID),$(call uniq, $(ALL_DEPENDENCIES) $(PLUGIN_DEPENDENCIES)))
+UNIQ_ALL_DEPENDENCIES      := $(filter-out $(ARTIFACT_ID),$(call uniq, $(ALL_DEPENDENCIES) $(PLUGIN_DEPENDENCIES) $(PLUGIN_SHARED)))
 
 # Find the proper branch of the GIT repository
 ifeq ($(TREE),1)

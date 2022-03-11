@@ -46,11 +46,23 @@ include $(BASEDIR)/project.mk
 CHK_CONFIG                  = test -f "$(CONFIG)" || (echo "System not properly configured. Please launch 'make config' first" && exit 1)
 DISTSRC_PATH                = $(BUILDDIR)/distsrc
 DISTSRC                     = $(DISTSRC_PATH)/$(ARTIFACT_NAME)
+DISTSRC_DIRS                = \
+  $(if $(wildcard $(BASEDIR)/include/*), $(BASEDIR)/include) \
+  $(if $(wildcard $(BASEDIR)/src/*), $(BASEDIR)/src) \
+  $(if $(wildcard $(BASEDIR)/make/*), $(BASEDIR)/make)
+DISTSRC_FILES               = \
+  $(wildcard $(BASEDIR)/CHANGELOG) \
+  $(wildcard $(BASEDIR)/COPYING*) \
+  $(wildcard $(BASEDIR)/*LICENSE*) \
+  $(wildcard $(BASEDIR)/Makefile) \
+  $(wildcard $(BASEDIR)/*.mk) \
+  $(wildcard $(BASEDIR)/*.md) \
+  $(wildcard $(BASEDIR)/*.txt)
 
 .DEFAULT_GOAL              := all
-.PHONY: all compile install uninstall depend clean
+.PHONY: all compile install uninstall depend clean package
 
-compile all install uninstall depend:
+compile all install uninstall depend package:
 	$(CHK_CONFIG)
 	$(MAKE) -C "$(BASEDIR)/src" $(@) VERBOSE="$(VERBOSE)" CONFIG="$(CONFIG)" DESTDIR="$(DESTDIR)"
 
@@ -95,14 +107,12 @@ distsrc:
 	echo "Building source code archive"
 	mkdir -p "$(DISTSRC)/modules"
 	$(MAKE) -f "make/modules.mk" tree VERBOSE="$(VERBOSE)" BASEDIR="$(BASEDIR)" MODULES="$(DISTSRC)/modules" TREE="1"
-	cp -R $(BASEDIR)/include $(BASEDIR)/make $(BASEDIR)/src "$(DISTSRC)/"
-	cp $(BASEDIR)/CHANGELOG $(BASEDIR)/COPYING* $(BASEDIR)/Makefile $(BASEDIR)/*.mk "$(DISTSRC)/"
+	$(if $(DISTSRC_DIRS), cp -R $(DISTSRC_DIRS) "$(DISTSRC)/")
+	$(if $(DISTSRC_FILES), cp $(DISTSRC_FILES) "$(DISTSRC)/")
 	find "$(DISTSRC)" -iname '.git' | xargs -exec rm -rf {}
 	find "$(DISTSRC)" -iname '.gitignore' | xargs -exec rm -rf {}
-	tar -C $(DISTSRC_PATH) -czf "$(BUILDDIR)/$(ARTIFACT_NAME)-$(ARTIFACT_VERSION)-src.tar.gz" "$(ARTIFACT_NAME)"
-	echo "Created archive: $(BUILDDIR)/$(ARTIFACT_NAME)-$(ARTIFACT_VERSION)-src.tar.gz"
-	ln -sf "$(ARTIFACT_NAME)-$(ARTIFACT_VERSION)-src.tar.gz" "$(BUILDDIR)/$(ARTIFACT_NAME)-src.tar.gz"
-	echo "Created symlink: $(BUILDDIR)/$(ARTIFACT_NAME)-src.tar.gz"
+	tar -C $(DISTSRC_PATH) -czf "$(BUILDDIR)/$(ARTIFACT_NAME)-src-$(ARTIFACT_VERSION).tar.gz" "$(ARTIFACT_NAME)"
+	echo "Created archive: $(BUILDDIR)/$(ARTIFACT_NAME)-src-$(ARTIFACT_VERSION).tar.gz"
 	rm -rf $(DISTSRC_PATH)
 	echo "Build OK"
 
@@ -119,6 +129,7 @@ help:
 	echo "  help                      Print this help message"
 	echo "  info                      Output build configuration"
 	echo "  install                   Install all binaries into the system"
+	echo "  package                   Create archive files with binaries"
 	echo "  prune                     Cleanup build and all fetched dependencies from git"
 	echo "  testconfig                Configure test build"
 	echo "  tree                      Fetch all possible source code dependencies from git"
@@ -127,3 +138,12 @@ help:
 	echo ""
 	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)"
 	echo ""
+	echo "Available FEATURES:"
+	echo "  doc                       Generate standalone HTML documentation"
+	echo "  jack                      Standalone JACK plugins"
+	echo "  ladspa                    LADSPA plugins"
+	echo "  lv2                       LV2 plugins"
+	echo "  vst2                      VST 2.x plugin binaries"
+	echo "  xdg                       Desktop integration icons"
+
+	
