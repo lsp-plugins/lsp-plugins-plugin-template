@@ -105,7 +105,7 @@ namespace lsp
             "plugin_template_mono",
             LSP_LV2_URI("plugin_template_mono"),
             LSP_LV2UI_URI("plugin_template_mono"),
-            "----",         // TODO: fill valid VST2 ID (4 letters/digits)
+            "xxxx",         // TODO: fill valid VST2 ID (4 letters/digits)
             0,              // TODO: fill valid LADSPA identifier (positive decimal integer)
             LSP_LADSPA_URI("plugin_template_mono"),
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
@@ -127,8 +127,8 @@ namespace lsp
             "plugin_template_stereo",
             LSP_LV2_URI("plugin_template_stereo"),
             LSP_LV2UI_URI("plugin_template_stereo"),
-            "----",         // TODO: fill valid VST2 ID (4 letters/digits)
-            0,              // TODO: fill valid LADSPA identifier (positive decimal integer)
+            "yyyy",         // TODO: fill valid VST2 ID (4 letters/digits)
+            1,              // TODO: fill valid LADSPA identifier (positive decimal integer)
             LSP_LADSPA_URI("plugin_template_stereo"),
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
             plugin_template_classes,
