@@ -227,6 +227,7 @@ namespace lsp
             for (size_t i=0; i<nChannels; ++i)
             {
                 channel_t *c    = &vChannels[i];
+                c->sLine.init(dspu::millis_to_samples(sr, meta::plugin_template::DELAY_OUT_MAX_TIME));
                 c->sBypass.init(sr);
             }
         }
