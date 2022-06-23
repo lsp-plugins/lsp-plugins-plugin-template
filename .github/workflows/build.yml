@@ -12,6 +12,7 @@ env:
   CARLA_BRIDGE_DUMMY: 1
   CARLA_BRIDGE_TESTING: native
   # FIXME some system library is causing memory leaks, switch to --leak-check=full when fixed
+  PLUGIN_METADATA: .build/target/lsp-plugin-fw/plugins.json
   VALGRIND_ARGS: --error-exitcode=255 --leak-check=no --track-origins=yes --suppressions=.github/workflows/valgrind.supp
   VALGRIND_DEBUG_ARGS: --error-exitcode=255 --leak-check=full --track-origins=yes --keep-debuginfo=yes --suppressions=.github/workflows/valgrind.supp
 
@@ -38,20 +39,20 @@ jobs:
         run: make install
       - name: Lint LV2 plugins
         run: |
-          for _plugin in $(jq -r '.plugins[].id' .build/target/lsp-plugin-fw/plugins.json); do \
-            lv2lint -Mpack "http://lsp-plug.in/plugins/lv2/${_plugin}"; \
+          for _plugin in $(jq -r '.plugins[].lv2_uri | select( . != null )' ${{ env.PLUGIN_METADATA }} ); do \
+            lv2lint -Mpack "${_plugin}"; \
           done
       - name: Validate LV2 syntax
         run: lv2_validate /usr/lib/lv2/lsp-*.lv2/*.ttl
       - name: LADSPA runtime checks
         run: |
-          for _plugin in $(jq -r '.plugins[].id' .build/target/lsp-plugin-fw/plugins.json); do \
-            valgrind ${{ env.VALGRIND_ARGS }} /usr/lib/carla/carla-bridge-native ladspa /usr/lib/ladspa/lsp-*.so "http://lsp-plug.in/plugins/ladspa/${_plugin}" 1>/dev/null; \
+          for _plugin in $(jq -r '.plugins[].ladspa_label | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
+            valgrind ${{ env.VALGRIND_ARGS }} /usr/lib/carla/carla-bridge-native ladspa /usr/lib/ladspa/lsp-*.so "${_plugin}" 1>/dev/null; \
           done
       - name: LV2 runtime checks
         run: |
-          for _plugin in $(jq -r '.plugins[].id' .build/target/lsp-plugin-fw/plugins.json); do \
-            valgrind ${{ env.VALGRIND_ARGS }} /usr/lib/carla/carla-bridge-native lv2 "" "http://lsp-plug.in/plugins/lv2/${_plugin}" 1>/dev/null; \
+          for _plugin in $(jq -r '.plugins[].lv2_uri | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
+            valgrind ${{ env.VALGRIND_ARGS }} /usr/lib/carla/carla-bridge-native lv2 "" "${_plugin}" 1>/dev/null; \
           done
       - name: VST2 runtime checks
         run: |
@@ -81,13 +82,13 @@ jobs:
         run: make install
       - name: LADSPA runtime checks
         run: |
-          for _plugin in $(jq -r '.plugins[].id' .build/target/lsp-plugin-fw/plugins.json); do \
-            valgrind ${{ env.VALGRIND_DEBUG_ARGS }} /usr/lib/carla/carla-bridge-native ladspa /usr/lib/ladspa/lsp-*.so "http://lsp-plug.in/plugins/ladspa/${_plugin}" 1>/dev/null; \
+          for _plugin in $(jq -r '.plugins[].ladspa_label | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
+            valgrind ${{ env.VALGRIND_DEBUG_ARGS }} /usr/lib/carla/carla-bridge-native ladspa /usr/lib/ladspa/lsp-*.so "${_plugin}" 1>/dev/null; \
           done
       - name: LV2 runtime checks
         run: |
-          for _plugin in $(jq -r '.plugins[].id' .build/target/lsp-plugin-fw/plugins.json); do \
-            valgrind ${{ env.VALGRIND_DEBUG_ARGS }} /usr/lib/carla/carla-bridge-native lv2 "" "http://lsp-plug.in/plugins/lv2/${_plugin}" 1>/dev/null; \
+          for _plugin in $(jq -r '.plugins[].lv2_uri | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
+            valgrind ${{ env.VALGRIND_DEBUG_ARGS }} /usr/lib/carla/carla-bridge-native lv2 "" "${_plugin}" 1>/dev/null; \
           done
       - name: VST2 runtime checks
         run: |
