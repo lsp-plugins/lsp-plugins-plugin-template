@@ -305,7 +305,8 @@ namespace lsp
                 c->pOutLevel->set_value(out_gain);
 
                 // Output the delay value in milliseconds
-                c->pOutDelay->set_value(dspu::samples_to_millis(fSampleRate, c->nDelay));
+                float millis = dspu::samples_to_millis(fSampleRate, c->nDelay);
+                c->pOutDelay->set_value(millis);
             }
         }
 

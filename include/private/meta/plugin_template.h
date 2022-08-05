@@ -43,7 +43,7 @@ namespace lsp
             static constexpr float  TIME_DFL            = 0.0f;
             static constexpr float  TIME_STEP           = 0.01f;
 
-            static constexpr float  DELAY_OUT_MAX_TIME  = 10.0f / MAX_SAMPLE_RATE;
+            static constexpr float  DELAY_OUT_MAX_TIME  = 10000.0f;
         } plugin_template;
 
         // Plugin type metadata
