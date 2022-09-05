@@ -49,6 +49,12 @@ LSP_LLTL_LIB_TYPE          := src
 LSP_LLTL_LIB_URL_RO        := https://github.com/lsp-plugins/$(LSP_LLTL_LIB_NAME).git
 LSP_LLTL_LIB_URL_RW        := git@github.com:lsp-plugins/$(LSP_LLTL_LIB_NAME).git
 
+LSP_PLUGIN_FW_VERSION      := 1.0.5
+LSP_PLUGIN_FW_NAME         := lsp-plugin-fw
+LSP_PLUGIN_FW_TYPE         := src
+LSP_PLUGIN_FW_URL_RO       := https://github.com/lsp-plugins/$(LSP_PLUGIN_FW_NAME).git
+LSP_PLUGIN_FW_URL_RW       := git@github.com:lsp-plugins/$(LSP_PLUGIN_FW_NAME).git
+
 LSP_R3D_BASE_LIB_VERSION   := 1.0.6
 LSP_R3D_BASE_LIB_NAME      := lsp-r3d-base-lib
 LSP_R3D_BASE_LIB_TYPE      := src
