@@ -13,3 +13,4 @@
 *.core
 /.config.mk
 /INSTALL/
+/modules/
