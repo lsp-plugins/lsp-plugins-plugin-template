@@ -24,6 +24,7 @@ ARTIFACT_NAME               = lsp-plugins-plugin-template
 ARTIFACT_TYPE               = plug
 ARTIFACT_DESC               = LSP Template Plugin
 ARTIFACT_HEADERS            = lsp-plug.in
+ARTIFACT_EXPORT_HEADERS     = 0
 ARTIFACT_VERSION            = 1.0.0-devel
 
 
