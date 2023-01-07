@@ -85,7 +85,9 @@ namespace lsp
             PORTS_END
         };
 
-        static const int plugin_template_classes[] = { C_DELAY, -1 };
+        static const int plugin_classes[]       = { C_DELAY, -1 };
+        static const int clap_features_mono[]   = { CF_AUDIO_EFFECT, CF_UTILITY, CF_MONO, -1 };
+        static const int clap_features_stereo[] = { CF_AUDIO_EFFECT, CF_UTILITY, CF_STEREO, -1 };
 
         const meta::bundle_t plugin_template_bundle =
         {
@@ -108,8 +110,10 @@ namespace lsp
             "xxxx",         // TODO: fill valid VST2 ID (4 letters/digits)
             1,              // TODO: fill valid LADSPA identifier (positive decimal integer)
             LSP_LADSPA_URI("plugin_template_mono"),
+            LSP_CLAP_URI("plugin_template_mono"),
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
-            plugin_template_classes,
+            plugin_classes,
+            clap_features_mono,
             E_DUMP_STATE,
             plugin_template_mono_ports,
             "template/plugin.xml",
@@ -130,8 +134,10 @@ namespace lsp
             "yyyy",         // TODO: fill valid VST2 ID (4 letters/digits)
             2,              // TODO: fill valid LADSPA identifier (positive decimal integer)
             LSP_LADSPA_URI("plugin_template_stereo"),
+            LSP_CLAP_URI("plugin_template_stereo"),
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
-            plugin_template_classes,
+            plugin_classes,
+            clap_features_stereo,
             E_DUMP_STATE,
             plugin_template_stereo_ports,
             "template/plugin.xml",
