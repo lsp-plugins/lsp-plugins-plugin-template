@@ -9,3 +9,5 @@ Icon=lsp-plugins
 Terminal=false
 StartupNotify=false
 Keywords=audio;sound;jackd;lsp-plugins;
+Categories=X-LSP-Plugins;
+NotShowIn=GNOME;
