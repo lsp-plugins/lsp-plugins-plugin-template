@@ -95,8 +95,9 @@ namespace lsp
                 virtual void        process(size_t samples);
                 virtual void        dump(dspu::IStateDumper *v) const;
         };
-    }
-}
+
+    } /* namespace plugins */
+} /* namespace lsp */
 
 
 #endif /* PRIVATE_PLUGINS_PLUGIN_TEMPLATE_H_ */

@@ -350,7 +350,7 @@ namespace lsp
             v->write("pData", pData);
         }
 
-    }
-}
+    } /* namespace plugins */
+} /* namespace lsp */
 
 

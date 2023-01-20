@@ -49,7 +49,8 @@ namespace lsp
         // Plugin type metadata
         extern const plugin_t plugin_template_mono;
         extern const plugin_t plugin_template_stereo;
-    }
-}
+
+    } /* namespace meta */
+} /* namespace lsp */
 
 #endif /* PRIVATE_META_PLUGIN_TEMPLATE_H_ */

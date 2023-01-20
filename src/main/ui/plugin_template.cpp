@@ -35,7 +35,8 @@ namespace lsp
         };
 
         static ui::Factory factory(plugin_uis, 2);
-    }
-}
+
+    } /* namespace plugui */
+} /* namespace lsp */
 
 
