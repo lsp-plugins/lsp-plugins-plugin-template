@@ -30,10 +30,14 @@
 /* The size of temporary buffer for audio processing */
 #define BUFFER_SIZE         0x1000U
 
-#define TRACE_PORT(p)       lsp_trace("  port id=%s", (p)->metadata()->id);
-
 namespace lsp
 {
+    static plug::IPort *TRACE_PORT(plug::IPort *p)
+    {
+        lsp_trace("  port id=%s", (p)->metadata()->id);
+        return p;
+    }
+
     namespace plugins
     {
         //---------------------------------------------------------------------
@@ -126,21 +130,14 @@ namespace lsp
 
             // Bind input audio ports
             for (size_t i=0; i<nChannels; ++i)
-            {
-                TRACE_PORT(ports[port_id]);
-                vChannels[i].pIn    = ports[port_id++];
-            }
+                vChannels[i].pIn    = TRACE_PORT(ports[port_id++]);
 
             // Bind output audio ports
             for (size_t i=0; i<nChannels; ++i)
-            {
-                TRACE_PORT(ports[port_id]);
-                vChannels[i].pOut   = ports[port_id++];
-            }
+                vChannels[i].pOut   = TRACE_PORT(ports[port_id++]);
 
             // Bind bypass
-            TRACE_PORT(ports[port_id]);
-            pBypass              = ports[port_id++];
+            pBypass              = TRACE_PORT(ports[port_id++]);
 
             // Bind ports for audio processing channels
             for (size_t i=0; i<nChannels; ++i)
@@ -159,18 +156,14 @@ namespace lsp
                 else
                 {
                     // Initialize input controls for the first channel
-                    TRACE_PORT(ports[port_id]);
-                    c->pDelay               = ports[port_id++];
-                    TRACE_PORT(ports[port_id]);
-                    c->pDry                 = ports[port_id++];
-                    TRACE_PORT(ports[port_id]);
-                    c->pWet                 = ports[port_id++];
+                    c->pDelay               = TRACE_PORT(ports[port_id++]);
+                    c->pDry                 = TRACE_PORT(ports[port_id++]);
+                    c->pWet                 = TRACE_PORT(ports[port_id++]);
                 }
             }
 
             // Bind output gain
-            TRACE_PORT(ports[port_id]);
-            pGainOut            = ports[port_id++];
+            pGainOut            = TRACE_PORT(ports[port_id++]);
 
             // Bind output meters
             for (size_t i=0; i<nChannels; ++i)
@@ -184,15 +177,10 @@ namespace lsp
                     c->pOutDelay            = pc->pOutDelay;
                 }
                 else
-                {
-                    TRACE_PORT(ports[port_id]);
-                    c->pOutDelay            = ports[port_id++];
-                }
+                    c->pOutDelay            = TRACE_PORT(ports[port_id++]);
 
-                TRACE_PORT(ports[port_id]);
-                c->pInLevel             = ports[port_id++];
-                TRACE_PORT(ports[port_id]);
-                c->pOutLevel            = ports[port_id++];
+                c->pInLevel             = TRACE_PORT(ports[port_id++]);
+                c->pOutLevel            = TRACE_PORT(ports[port_id++]);
             }
         }
 
