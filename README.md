@@ -57,6 +57,39 @@ same directory the `lsp-plugins-plugin-template` is placed.
 
 * For Eclipse users, use `File -> Open Projects from File System...` menu to import the project.
 
+Source code tree
+======
+
+The typical source code tree is the following:
+
+* include - include files for the plugin
+  * private - all headers related to the plugin should be placed here
+    * meta - headers for plugin metadata
+    * plugins - headers for plugin modules (DSP part)
+    * ui - headers for UI modules (UI part)
+* make - makefiles for configuration
+* modules - folder for fetching the plugin dependencies
+* res - different plugin resources
+  * doc - different resources for documentation
+    * configs - different configurations that can be applied for taking screenshots
+    * screenshots - plugin UI screenshots, 1 per plugin
+  * main - main resources that will be built-in into the plugin binary
+    * i18n - different localization files
+    * presets - plugin presets that can be used and loaded by the plugin
+    * ui - XML files for instantiating the basic UI
+  * xdg - different resources for XDG integration
+    * apps - folder with directory files for launching standalone plugin binaries
+* src - plugin source code
+  * doc - documentation to the plugin in PHP format
+  * main - the main plugin code
+    * meta - plugin metadata
+    * plug - the DSP code part of plugin
+    * shared - the shared code between DSP part and UI part
+    * ui - the UI code part of plugin
+  * test - the code for testing
+    * mtest - the code for manual testing
+    * utest - the code for unit testing
+    * ptest - the code for performance testing
 
 Building
 ======
