@@ -157,10 +157,6 @@ LIBJACK_VERSION            := system
 LIBJACK_NAME               := jack
 LIBJACK_TYPE               := pkg
 
-LIBLADSPA_VERSION          := system
-LIBLADSPA_NAME             := ladspa
-LIBLADSPA_TYPE             := opt
-
 LIBMSACM_VERSION           := system
 LIBMSACM_NAME              := libmsacm
 LIBMSACM_TYPE              := opt
