@@ -104,7 +104,7 @@ LSP_PLUGIN_FW_TYPE         := src
 LSP_PLUGIN_FW_URL_RO       := https://github.com/lsp-plugins/$(LSP_PLUGIN_FW_NAME).git
 LSP_PLUGIN_FW_URL_RW       := git@github.com:lsp-plugins/$(LSP_PLUGIN_FW_NAME).git
 
-LSP_PLUGINS_SHARED_VERSION := 1.0.8
+LSP_PLUGINS_SHARED_VERSION := 1.0.9
 LSP_PLUGINS_SHARED_NAME    := lsp-plugins-shared
 LSP_PLUGINS_SHARED_TYPE    := src
 LSP_PLUGINS_SHARED_URL_RO  := https://github.com/lsp-plugins/$(LSP_PLUGINS_SHARED_NAME).git
