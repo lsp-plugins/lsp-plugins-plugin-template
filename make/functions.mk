@@ -49,7 +49,7 @@ intersection            = $(sort $(foreach v,$1,$(if $(findstring $(v),$2),$(v))
 
 # Subtract the first set from second set
 # $(call subtraction, list1, list2)
-subtraction             = $(foreach v,$2,$(if $(findstring $(v),$1),,$(v)))
+subtraction             = $(sort $(foreach v,$2,$(if $(findstring $(v),$1),,$(v))))
 
 # Check feature presence in list
 # $(call fcheck, features-to-check, all-feature-list, action-if-enabled, action-if-disabled)
