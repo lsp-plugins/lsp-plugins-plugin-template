@@ -84,16 +84,16 @@ namespace lsp
 
             public:
                 explicit plugin_template(const meta::plugin_t *meta);
-                virtual ~plugin_template();
+                virtual ~plugin_template() override;
 
-                virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports);
-                void                destroy();
+                virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports) override;
+                virtual void        destroy() override;
 
             public:
-                virtual void        update_sample_rate(long sr);
-                virtual void        update_settings();
-                virtual void        process(size_t samples);
-                virtual void        dump(dspu::IStateDumper *v) const;
+                virtual void        update_sample_rate(long sr) override;
+                virtual void        update_settings() override;
+                virtual void        process(size_t samples) override;
+                virtual void        dump(dspu::IStateDumper *v) const override;
         };
 
     } /* namespace plugins */
