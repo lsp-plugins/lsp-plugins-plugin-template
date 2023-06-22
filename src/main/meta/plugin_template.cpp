@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) PLUGIN_ISSUE_YEAR Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) PLUGIN_ISSUE_YEAR Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-plugin-template
- * Created on: 25 нояб. 2020 г.
+ * Created on: PLUGIN_ISSUE_DATE г.
  *
  * lsp-plugins-plugin-template is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

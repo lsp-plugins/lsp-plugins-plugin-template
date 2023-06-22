@@ -34,6 +34,9 @@ FULL_NAME_SCORE=`echo "${FULL_NAME_DASH}" | sed s/-/_/g`
 PLUGIN_NAME_DASH=`echo "${PLUGIN_NAME}" | sed s/_/-/g`
 PLUGIN_NAME_SCORE=`echo "${PLUGIN_NAME_DASH}" | sed s/-/_/g`
 
+PLUGIN_YEAR=`date '+%Y'`
+PLUGIN_DATE=`date '+%d %b %Y'`
+
 echo "FULL_NAME_DASH = $FULL_NAME_DASH"
 echo "FULL_NAME_SCORE = $FULL_NAME_SCORE"
 echo "PLUGIN_NAME_DASH = $PLUGIN_NAME_DASH"
@@ -65,6 +68,8 @@ for file in ${MAKEFILES_TO_UPDATE}
 do
   echo "Processing $file"
   sed -E -i "s/lsp-plugins-plugin-template/${FULL_NAME_DASH}/g" "$file"
+  sed -E -i "s/PLUGIN_ISSUE_YEAR/${PLUGIN_YEAR}/g" "$file"
+  sed -E -i "s/PLUGIN_ISSUE_DATE/${PLUGIN_DATE}/g" "$file"
 done;
 
 SOURCE_FILES_TO_UPDATE=
@@ -89,6 +94,8 @@ do
   sed -E -i "s/lsp-plugins-plugin-template/${FULL_NAME_DASH}/g" "$file"
   sed -E -i "s/LSP_PLUGINS_PLUGIN_TEMPLATE/${ARTIFACT_ID}/g" "$file"
   sed -E -i "s/PLUGIN_TEMPLATE/${PLUGIN_NAME_SCORE_UPPER}/g" "$file"
+  sed -E -i "s/PLUGIN_ISSUE_YEAR/${PLUGIN_YEAR}/g" "$file"
+  sed -E -i "s/PLUGIN_ISSUE_DATE/${PLUGIN_DATE}/g" "$file"
   new_file=`echo "$file" | sed -E "s/plugin_template/${PLUGIN_NAME_SCORE}/g"`
   if [ "$file" != "$new_file" ]; then
     mv "$file" "$new_file"
