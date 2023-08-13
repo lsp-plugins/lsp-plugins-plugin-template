@@ -83,16 +83,19 @@ jobs:
       - name: LADSPA runtime checks
         run: |
           for _plugin in $(jq -r '.plugins[].ladspa_label | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
+            export ASAN_OPTIONS=verify_asan_link_order=0; \
             /usr/lib/carla/carla-bridge-native ladspa /usr/lib/ladspa/lsp-*.so "${_plugin}" 1>/dev/null; \
           done
       - name: LV2 runtime checks
         run: |
           for _plugin in $(jq -r '.plugins[].lv2_uri | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
+            export ASAN_OPTIONS=verify_asan_link_order=0; \
             /usr/lib/carla/carla-bridge-native lv2 "" "${_plugin}" 1>/dev/null; \
           done
       - name: VST2 runtime checks
         run: |
           for _binary in $(ls /usr/lib/vst/lsp-plugins/*.so | grep -v /lsp-plugins-); do \
+            export ASAN_OPTIONS=verify_asan_link_order=0; \
             /usr/lib/carla/carla-bridge-native vst2 "${_binary}" "" 1>/dev/null; \
           done
 
