@@ -300,6 +300,8 @@ namespace lsp
 
         void plugin_template::dump(dspu::IStateDumper *v) const
         {
+            plug::Module::dump(v);
+
             // It is very useful to dump plugin state for debug purposes
             v->write("nChannels", nChannels);
             v->begin_array("vChannels", vChannels, nChannels);
