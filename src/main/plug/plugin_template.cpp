@@ -78,7 +78,7 @@ namespace lsp
 
         plugin_template::~plugin_template()
         {
-            destroy();
+            do_destroy();
         }
 
         void plugin_template::init(plug::IWrapper *wrapper, plug::IPort **ports)
@@ -185,6 +185,12 @@ namespace lsp
         }
 
         void plugin_template::destroy()
+        {
+            Module::destroy();
+            do_destroy();
+        }
+
+        void plugin_template::do_destroy()
         {
             Module::destroy();
 

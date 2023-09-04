@@ -82,6 +82,9 @@ namespace lsp
 
                 uint8_t            *pData;              // Allocated data
 
+            protected:
+                void                do_destroy();
+
             public:
                 explicit plugin_template(const meta::plugin_t *meta);
                 virtual ~plugin_template() override;
