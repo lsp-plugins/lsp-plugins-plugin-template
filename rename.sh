@@ -57,6 +57,8 @@ MAKEFILES_TO_UPDATE="\
   Makefile \
   modules.mk \
   dependencies.mk \
+  project.mk \
+  plugins.mk \
   make/configure.mk \
   make/functions.mk \
   make/modules.mk \
