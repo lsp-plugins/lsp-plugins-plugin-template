@@ -63,6 +63,7 @@ MAKEFILES_TO_UPDATE="\
   make/functions.mk \
   make/modules.mk \
   make/system.mk \
+  make/paths.mk \
   make/tools.mk \
   src/Makefile"
 
