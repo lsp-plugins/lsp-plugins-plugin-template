@@ -192,8 +192,6 @@ namespace lsp
 
         void plugin_template::do_destroy()
         {
-            Module::destroy();
-
             // Destroy channels
             if (vChannels != NULL)
             {
