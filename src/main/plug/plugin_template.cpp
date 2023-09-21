@@ -198,6 +198,7 @@ namespace lsp
                 for (size_t i=0; i<nChannels; ++i)
                 {
                     channel_t *c    = &vChannels[i];
+                    c->sBypass.destroy();
                     c->sLine.destroy();
                 }
                 vChannels   = NULL;
