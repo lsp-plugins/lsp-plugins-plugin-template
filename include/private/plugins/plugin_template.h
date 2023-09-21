@@ -36,10 +36,6 @@ namespace lsp
          */
         class plugin_template: public plug::Module
         {
-            private:
-                plugin_template & operator = (const plugin_template &);
-                plugin_template (const plugin_template &);
-
             protected:
                 enum mode_t
                 {
@@ -87,7 +83,12 @@ namespace lsp
 
             public:
                 explicit plugin_template(const meta::plugin_t *meta);
+                plugin_template (const plugin_template &) = delete;
+                plugin_template (plugin_template &&) = delete;
                 virtual ~plugin_template() override;
+
+                plugin_template & operator = (const plugin_template &) = delete;
+                plugin_template & operator = (plugin_template &&) = delete;
 
                 virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports) override;
                 virtual void        destroy() override;
