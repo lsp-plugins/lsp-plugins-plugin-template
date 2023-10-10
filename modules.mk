@@ -19,7 +19,6 @@
 #
 
 # Variables that describe dependencies
-# Variables that describe dependencies
 LSP_3RD_PARTY_VERSION      := 1.0.13
 LSP_3RD_PARTY_NAME         := lsp-3rd-party
 LSP_3RD_PARTY_TYPE         := hdr
