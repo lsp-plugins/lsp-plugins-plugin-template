@@ -19,6 +19,7 @@
 #
 
 # Variables that describe dependencies
+# Variables that describe dependencies
 LSP_3RD_PARTY_VERSION      := 1.0.13
 LSP_3RD_PARTY_NAME         := lsp-3rd-party
 LSP_3RD_PARTY_TYPE         := hdr
@@ -32,13 +33,13 @@ LSP_COMMON_LIB_TYPE        := src
 LSP_COMMON_LIB_URL_RO      := https://github.com/lsp-plugins/$(LSP_COMMON_LIB_NAME).git
 LSP_COMMON_LIB_URL_RW      := git@github.com:lsp-plugins/$(LSP_COMMON_LIB_NAME).git
 
-LSP_DSP_LIB_VERSION        := 1.0.17
+LSP_DSP_LIB_VERSION        := 1.0.18
 LSP_DSP_LIB_NAME           := lsp-dsp-lib
 LSP_DSP_LIB_TYPE           := src
 LSP_DSP_LIB_URL_RO         := https://github.com/lsp-plugins/$(LSP_DSP_LIB_NAME).git
 LSP_DSP_LIB_URL_RW         := git@github.com:lsp-plugins/$(LSP_DSP_LIB_NAME).git
 
-LSP_DSP_UNITS_VERSION      := 1.0.16
+LSP_DSP_UNITS_VERSION      := 1.0.17
 LSP_DSP_UNITS_NAME         := lsp-dsp-units
 LSP_DSP_UNITS_TYPE         := src
 LSP_DSP_UNITS_URL_RO       := https://github.com/lsp-plugins/$(LSP_DSP_UNITS_NAME).git
@@ -86,26 +87,26 @@ LSP_TEST_FW_TYPE           := src
 LSP_TEST_FW_URL_RO         := https://github.com/lsp-plugins/$(LSP_TEST_FW_NAME).git
 LSP_TEST_FW_URL_RW         := git@github.com:lsp-plugins/$(LSP_TEST_FW_NAME).git
 
-LSP_TK_LIB_VERSION         := 1.0.16
+LSP_TK_LIB_VERSION         := 1.0.17
 LSP_TK_LIB_NAME            := lsp-tk-lib
 LSP_TK_LIB_TYPE            := src
 LSP_TK_LIB_URL_RO          := https://github.com/lsp-plugins/$(LSP_TK_LIB_NAME).git
 LSP_TK_LIB_URL_RW          := git@github.com:lsp-plugins/$(LSP_TK_LIB_NAME).git
 
-LSP_WS_LIB_VERSION         := 1.0.16
+LSP_WS_LIB_VERSION         := 1.0.17
 LSP_WS_LIB_NAME            := lsp-ws-lib
 LSP_WS_LIB_TYPE            := src
 LSP_WS_LIB_URL_RO          := https://github.com/lsp-plugins/$(LSP_WS_LIB_NAME).git
 LSP_WS_LIB_URL_RW          := git@github.com:lsp-plugins/$(LSP_WS_LIB_NAME).git
 
 # Plugin-related module dependencies
-LSP_PLUGIN_FW_VERSION      := 1.0.18
+LSP_PLUGIN_FW_VERSION      := 1.0.19
 LSP_PLUGIN_FW_NAME         := lsp-plugin-fw
 LSP_PLUGIN_FW_TYPE         := src
 LSP_PLUGIN_FW_URL_RO       := https://github.com/lsp-plugins/$(LSP_PLUGIN_FW_NAME).git
 LSP_PLUGIN_FW_URL_RW       := git@github.com:lsp-plugins/$(LSP_PLUGIN_FW_NAME).git
 
-LSP_PLUGINS_SHARED_VERSION := 1.0.17
+LSP_PLUGINS_SHARED_VERSION := 1.0.18
 LSP_PLUGINS_SHARED_NAME    := lsp-plugins-shared
 LSP_PLUGINS_SHARED_TYPE    := src
 LSP_PLUGINS_SHARED_URL_RO  := https://github.com/lsp-plugins/$(LSP_PLUGINS_SHARED_NAME).git
