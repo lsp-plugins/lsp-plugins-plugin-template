@@ -37,6 +37,8 @@ jobs:
         run: make VERBOSE=1
       - name: Install binaries
         run: make install
+      - name: System information
+        run: lscpu
       - name: Lint LV2 plugins
         run: |
           for _plugin in $(jq -r '.plugins[].lv2_uri | select( . != null )' ${{ env.PLUGIN_METADATA }} ); do \
@@ -80,6 +82,8 @@ jobs:
         run: make VERBOSE=1
       - name: Install binaries
         run: make install
+      - name: System information
+        run: lscpu
       - name: LADSPA runtime checks
         run: |
           for _plugin in $(jq -r '.plugins[].ladspa_label | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
@@ -119,6 +123,8 @@ jobs:
         run: make VERBOSE=1
       - name: Install binaries
         run: make install
+      - name: System information
+        run: lscpu
       - name: LADSPA runtime checks
         run: |
           for _plugin in $(jq -r '.plugins[].ladspa_label | select( . != null )' ${{ env.PLUGIN_METADATA }}); do \
