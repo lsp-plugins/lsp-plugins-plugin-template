@@ -139,6 +139,7 @@ help:
 	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)"
 	echo ""
 	echo "Available FEATURES:"
+	echo "  clap                      CLAP plugin format binaries"
 	echo "  doc                       Generate standalone HTML documentation"
 	echo "  jack                      Standalone JACK plugins"
 	echo "  ladspa                    LADSPA plugins"
