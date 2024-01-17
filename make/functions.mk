@@ -1,6 +1,6 @@
 #
-# Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
-#           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+# Copyright (C) PLUGIN_ISSUE_YEAR Linux Studio Plugins Project <https://lsp-plug.in/>
+#           (C) PLUGIN_ISSUE_YEAR Vladimir Sadovnikov <sadko4u@gmail.com>
 #
 # This file is part of lsp-plugins-plugin-template
 #
@@ -45,11 +45,15 @@ cquery                  = $(foreach d,$(call uniq, $3),$(if $($(d)_$(strip $1)),
 
 # Find intersection between two sets
 # $(call intersection, list1, list2)
-intersection            = $(foreach v,$1,$(if $(findstring $(v),$2),$(v)))
+intersection            = $(sort $(foreach v,$1,$(if $(findstring $(v),$2),$(v))))
 
 # Subtract the first set from second set
 # $(call subtraction, list1, list2)
-subtraction             = $(foreach v,$2,$(if $(findstring $(v),$1),,$(v)))
+subtraction             = $(sort $(foreach v,$2,$(if $(findstring $(v),$1),,$(v))))
+
+# Check feature presence in list
+# $(call fcheck, features-to-check, all-feature-list, action-if-enabled, action-if-disabled)
+fcheck                  = $(if $(call intersection,$1,$2),$3,$4)
 
 # Fetch different versions from version string
 # $(call vmajor, <version-string>)
@@ -57,3 +61,10 @@ vmajor                  = $(shell echo "$(strip $1)" | sed -E 's/([0-9]+)\.([0-9
 vminor                  = $(shell echo "$(strip $1)" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)(-(.*))?/\2/')
 vmicro                  = $(shell echo "$(strip $1)" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)(-(.*))?/\3/')
 vbranch                 = $(shell echo "$(strip $1)" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)(-(.*))?/\5/')
+
+ifeq ("$(MSYSTEM)","")
+  pathconv                = $1
+else
+  pathconv                = $(shell cygpath -w "$1")
+endif
+

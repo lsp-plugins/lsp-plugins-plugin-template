@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) PLUGIN_ISSUE_YEAR Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) PLUGIN_ISSUE_YEAR Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-plugin-template
- * Created on: 25 нояб. 2020 г.
+ * Created on: PLUGIN_ISSUE_DATE г.
  *
  * lsp-plugins-plugin-template is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,6 +24,7 @@
 #include <lsp-plug.in/dsp/dsp.h>
 #include <lsp-plug.in/dsp-units/units.h>
 #include <lsp-plug.in/plug-fw/meta/func.h>
+#include <lsp-plug.in/shared/debug.h>
 
 #include <private/plugins/plugin_template.h>
 
@@ -32,12 +33,6 @@
 
 namespace lsp
 {
-    static plug::IPort *TRACE_PORT(plug::IPort *p)
-    {
-        lsp_trace("  port id=%s", (p)->metadata()->id);
-        return p;
-    }
-
     namespace plugins
     {
         //---------------------------------------------------------------------
@@ -78,7 +73,7 @@ namespace lsp
 
         plugin_template::~plugin_template()
         {
-            destroy();
+            do_destroy();
         }
 
         void plugin_template::init(plug::IWrapper *wrapper, plug::IPort **ports)
@@ -130,14 +125,14 @@ namespace lsp
 
             // Bind input audio ports
             for (size_t i=0; i<nChannels; ++i)
-                vChannels[i].pIn    = TRACE_PORT(ports[port_id++]);
+                vChannels[i].pIn    = trace_port(ports[port_id++]);
 
             // Bind output audio ports
             for (size_t i=0; i<nChannels; ++i)
-                vChannels[i].pOut   = TRACE_PORT(ports[port_id++]);
+                vChannels[i].pOut   = trace_port(ports[port_id++]);
 
             // Bind bypass
-            pBypass              = TRACE_PORT(ports[port_id++]);
+            pBypass              = trace_port(ports[port_id++]);
 
             // Bind ports for audio processing channels
             for (size_t i=0; i<nChannels; ++i)
@@ -156,14 +151,14 @@ namespace lsp
                 else
                 {
                     // Initialize input controls for the first channel
-                    c->pDelay               = TRACE_PORT(ports[port_id++]);
-                    c->pDry                 = TRACE_PORT(ports[port_id++]);
-                    c->pWet                 = TRACE_PORT(ports[port_id++]);
+                    c->pDelay               = trace_port(ports[port_id++]);
+                    c->pDry                 = trace_port(ports[port_id++]);
+                    c->pWet                 = trace_port(ports[port_id++]);
                 }
             }
 
             // Bind output gain
-            pGainOut            = TRACE_PORT(ports[port_id++]);
+            pGainOut            = trace_port(ports[port_id++]);
 
             // Bind output meters
             for (size_t i=0; i<nChannels; ++i)
@@ -177,23 +172,28 @@ namespace lsp
                     c->pOutDelay            = pc->pOutDelay;
                 }
                 else
-                    c->pOutDelay            = TRACE_PORT(ports[port_id++]);
+                    c->pOutDelay            = trace_port(ports[port_id++]);
 
-                c->pInLevel             = TRACE_PORT(ports[port_id++]);
-                c->pOutLevel            = TRACE_PORT(ports[port_id++]);
+                c->pInLevel             = trace_port(ports[port_id++]);
+                c->pOutLevel            = trace_port(ports[port_id++]);
             }
         }
 
         void plugin_template::destroy()
         {
             Module::destroy();
+            do_destroy();
+        }
 
+        void plugin_template::do_destroy()
+        {
             // Destroy channels
             if (vChannels != NULL)
             {
                 for (size_t i=0; i<nChannels; ++i)
                 {
                     channel_t *c    = &vChannels[i];
+                    c->sBypass.destroy();
                     c->sLine.destroy();
                 }
                 vChannels   = NULL;
@@ -300,6 +300,8 @@ namespace lsp
 
         void plugin_template::dump(dspu::IStateDumper *v) const
         {
+            plug::Module::dump(v);
+
             // It is very useful to dump plugin state for debug purposes
             v->write("nChannels", nChannels);
             v->begin_array("vChannels", vChannels, nChannels);

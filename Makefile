@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 #
-# Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
-#           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+# Copyright (C) PLUGIN_ISSUE_YEAR Linux Studio Plugins Project <https://lsp-plug.in/>
+#           (C) PLUGIN_ISSUE_YEAR Vladimir Sadovnikov <sadko4u@gmail.com>
 #
 # This file is part of lsp-plugins-plugin-template
 #
@@ -61,9 +61,9 @@ DISTSRC_FILES               = \
   $(wildcard $(BASEDIR)/*.txt)
 
 .DEFAULT_GOAL              := all
-.PHONY: all compile install uninstall depend clean package
+.PHONY: all compile install uninstall clean package
 
-compile all install uninstall depend package:
+compile all install uninstall package:
 	$(CHK_CONFIG)
 	$(MAKE) -C "$(BASEDIR)/src" $(@) VERBOSE="$(VERBOSE)" CONFIG="$(CONFIG)" DESTDIR="$(DESTDIR)"
 
@@ -123,7 +123,6 @@ help:
 	echo "  all                       Build all binaries"
 	echo "  clean                     Clean all build files and configuration file"
 	echo "  config                    Configure build"
-	echo "  depend                    Update build dependencies for current project"
 	echo "  devel                     Configure build as development build"
 	echo "  distsrc                   Make tarball with source code for packagers"
 	echo "  fetch                     Fetch all desired source code dependencies from git"
@@ -140,6 +139,7 @@ help:
 	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)"
 	echo ""
 	echo "Available FEATURES:"
+	echo "  clap                      CLAP plugin format binaries"
 	echo "  doc                       Generate standalone HTML documentation"
 	echo "  jack                      Standalone JACK plugins"
 	echo "  ladspa                    LADSPA plugins"

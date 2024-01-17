@@ -1,6 +1,6 @@
 #
-# Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
-#           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+# Copyright (C) PLUGIN_ISSUE_YEAR Linux Studio Plugins Project <https://lsp-plug.in/>
+#           (C) PLUGIN_ISSUE_YEAR Vladimir Sadovnikov <sadko4u@gmail.com>
 #
 # This file is part of lsp-plugins-plugin-template
 #
@@ -85,11 +85,18 @@ else ifeq ($(PLATFORM),BSD)
 endif
 
 ifeq ($(DEBUG),1)
-  CFLAGS_EXT         += -Og -g3 -DLSP_DEBUG
-  CXXFLAGS_EXT       += -Og -g3 -DLSP_DEBUG
+  CFLAGS_EXT         += -Og -g3 -DLSP_DEBUG -falign-functions=16
+  CXXFLAGS_EXT       += -Og -g3 -DLSP_DEBUG -falign-functions=16
 else
   CFLAGS_EXT         += -O2
   CXXFLAGS_EXT       += -O2
+endif
+
+ifeq ($(ASAN),1)
+  CFLAGS_EXT         += -fsanitize=address
+  CXXFLAGS_EXT       += -fsanitize=address
+  EXE_FLAGS_EXT      += -fsanitize=address
+  SO_FLAGS_EXT       += -fsanitize=address
 endif
 
 ifeq ($(PROFILE),1)
@@ -100,6 +107,11 @@ endif
 ifeq ($(TRACE),1)
   CFLAGS_EXT         += -DLSP_TRACE
   CXXFLAGS_EXT       += -DLSP_TRACE
+endif
+
+ifeq ($(STRICT),1)
+  CFLAGS_EXT         += -Werror
+  CXXFLAGS_EXT       += -Werror
 endif
 
 ifeq ($(TEST),1)

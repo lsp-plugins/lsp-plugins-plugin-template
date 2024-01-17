@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) PLUGIN_ISSUE_YEAR Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) PLUGIN_ISSUE_YEAR Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-plugin-template
- * Created on: 25 нояб. 2020 г.
+ * Created on: PLUGIN_ISSUE_DATE г.
  *
  * lsp-plugins-plugin-template is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -36,10 +36,6 @@ namespace lsp
          */
         class plugin_template: public plug::Module
         {
-            private:
-                plugin_template & operator = (const plugin_template &);
-                plugin_template (const plugin_template &);
-
             protected:
                 enum mode_t
                 {
@@ -82,18 +78,26 @@ namespace lsp
 
                 uint8_t            *pData;              // Allocated data
 
+            protected:
+                void                do_destroy();
+
             public:
                 explicit plugin_template(const meta::plugin_t *meta);
-                virtual ~plugin_template();
+                plugin_template (const plugin_template &) = delete;
+                plugin_template (plugin_template &&) = delete;
+                virtual ~plugin_template() override;
 
-                virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports);
-                void                destroy();
+                plugin_template & operator = (const plugin_template &) = delete;
+                plugin_template & operator = (plugin_template &&) = delete;
+
+                virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports) override;
+                virtual void        destroy() override;
 
             public:
-                virtual void        update_sample_rate(long sr);
-                virtual void        update_settings();
-                virtual void        process(size_t samples);
-                virtual void        dump(dspu::IStateDumper *v) const;
+                virtual void        update_sample_rate(long sr) override;
+                virtual void        update_settings() override;
+                virtual void        process(size_t samples) override;
+                virtual void        dump(dspu::IStateDumper *v) const override;
         };
 
     } /* namespace plugins */
