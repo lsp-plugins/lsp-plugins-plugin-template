@@ -154,14 +154,14 @@ LIBICONV_NAME              := libiconv
 LIBICONV_TYPE              := opt
 LIBICONV_LDFLAGS           := -liconv
 
+LIBJACK_VERSION            := system
+LIBJACK_NAME               := jack
+LIBJACK_TYPE               := pkg
+
 LIBMPR_VERSION             := system
 LIBMPR_NAME                := libmpr
 LIBMPR_TYPE                := opt
 LIBMPR_LDFLAGS             := -lmpr
-
-LIBJACK_VERSION            := system
-LIBJACK_NAME               := jack
-LIBJACK_TYPE               := pkg
 
 LIBMSACM_VERSION           := system
 LIBMSACM_NAME              := libmsacm
@@ -182,6 +182,11 @@ LIBPTHREAD_VERSION         := system
 LIBPTHREAD_NAME            := libpthread
 LIBPTHREAD_TYPE            := opt
 LIBPTHREAD_LDFLAGS         := -lpthread
+
+LIBRT_VERSION              := system
+LIBRT_NAME                 := librt
+LIBRT_TYPE                 := opt
+LIBRT_LDFLAGS              := -lrt
 
 LIBSNDFILE_VERSION         := system
 LIBSNDFILE_NAME            := sndfile
