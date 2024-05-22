@@ -91,8 +91,8 @@ namespace lsp
 
         const meta::bundle_t plugin_template_bundle =
         {
-            "plugin_template",
-            "Plugin Template",
+            "plugin_template", // TODO: write proper bundle identifier
+            "Plugin Template", // TODO: write proper bundle name
             B_UTILITIES,
             "", // TODO: provide ID of the video on YouTube
             "" // TODO: write plugin description, should be the same to the english version in 'bundles.json'
