@@ -58,7 +58,7 @@ jobs:
           done
       - name: VST2 runtime checks
         run: |
-          for _binary in $(ls /usr/lib/vst/lsp-plugins/*.so | grep -v /lsp-plugins-); do \
+          for _binary in $(ls /usr/lib/vst/lsp-plugins/*.so | grep -v /liblsp-plugins-); do \
             valgrind ${{ env.VALGRIND_ARGS }} /usr/lib/carla/carla-bridge-native vst2 "${_binary}" "" 1>/dev/null; \
           done
 
@@ -98,7 +98,7 @@ jobs:
           done
       - name: VST2 runtime checks
         run: |
-          for _binary in $(ls /usr/lib/vst/lsp-plugins/*.so | grep -v /lsp-plugins-); do \
+          for _binary in $(ls /usr/lib/vst/lsp-plugins/*.so | grep -v /liblsp-plugins-); do \
             export ASAN_OPTIONS=verify_asan_link_order=0; \
             /usr/lib/carla/carla-bridge-native vst2 "${_binary}" "" 1>/dev/null; \
           done
@@ -137,7 +137,7 @@ jobs:
           done
       - name: VST2 runtime checks
         run: |
-          for _binary in $(ls /usr/lib/vst/lsp-plugins/*.so | grep -v /lsp-plugins-); do \
+          for _binary in $(ls /usr/lib/vst/lsp-plugins/*.so | grep -v /liblsp-plugins-); do \
             valgrind ${{ env.VALGRIND_DEBUG_ARGS }} /usr/lib/carla/carla-bridge-native vst2 "${_binary}" "" 1>/dev/null; \
           done
 
@@ -183,7 +183,7 @@ jobs:
       - name: Update repositories
         run: apt-get update
       - name: Install dependencies
-        run: apt-get -y install gcc g++ git make php-cli pkg-config valgrind libx11-dev libxrandr-dev libjack-dev libcairo2-dev libgl-dev libfreetype6-dev libsndfile1-dev gstreamer-dev gstreamer1.0-plugins-base-dev
+        run: apt-get -y install gcc g++ git make php-cli pkg-config valgrind libx11-dev libxrandr-dev libjack-dev libcairo2-dev libgl-dev libfreetype6-dev libsndfile1-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
       - uses: actions/checkout@v3
       - name: Configure project
         run: make config STRICT=1 VERBOSE=1 FEATURES='clap doc jack gst ladspa lv2 vst2 vst3 xdg' PREFIX=/usr
