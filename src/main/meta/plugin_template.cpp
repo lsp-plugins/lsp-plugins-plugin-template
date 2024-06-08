@@ -106,14 +106,17 @@ namespace lsp
             "PS1M",
             &developers::v_sadovnikov,
             "plugin_template_mono",
-            LSP_LV2_URI("plugin_template_mono"),
-            LSP_LV2UI_URI("plugin_template_mono"),
-            "xxxx",         // TODO: fill valid VST2 ID (4 letters/digits)
-            LSP_VST3_UID("ps1m    xxxx"),
-            LSP_VST3UI_UID("ps1m    xxxx"),
-            1,              // TODO: fill valid LADSPA identifier (positive decimal integer)
-            LSP_LADSPA_URI("plugin_template_mono"),
-            LSP_CLAP_URI("plugin_template_mono"),
+            {
+                LSP_LV2_URI("plugin_template_mono"),
+                LSP_LV2UI_URI("plugin_template_mono"),
+                "xxxx",         // TODO: fill valid VST2 ID (4 letters/digits)
+                LSP_VST3_UID("ps1m    xxxx"),
+                LSP_VST3UI_UID("ps1m    xxxx"),
+                1,              // TODO: fill valid LADSPA identifier (positive decimal integer)
+                LSP_LADSPA_URI("plugin_template_mono"),
+                LSP_CLAP_URI("plugin_template_mono"),
+                LSP_GST_UID("plugin_template_mono"),
+            },
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
             plugin_classes,
             clap_features_mono,
@@ -133,14 +136,17 @@ namespace lsp
             "PS1S",
             &developers::v_sadovnikov,
             "plugin_template_stereo",
-            LSP_LV2_URI("plugin_template_stereo"),
-            LSP_LV2UI_URI("plugin_template_stereo"),
-            "yyyy",         // TODO: fill valid VST2 ID (4 letters/digits)
-            LSP_VST3_UID("ps1s    yyyy"),
-            LSP_VST3UI_UID("ps1s    yyyy"),
-            2,              // TODO: fill valid LADSPA identifier (positive decimal integer)
-            LSP_LADSPA_URI("plugin_template_stereo"),
-            LSP_CLAP_URI("plugin_template_stereo"),
+            {
+                LSP_LV2_URI("plugin_template_stereo"),
+                LSP_LV2UI_URI("plugin_template_stereo"),
+                "yyyy",         // TODO: fill valid VST2 ID (4 letters/digits)
+                LSP_VST3_UID("ps1s    yyyy"),
+                LSP_VST3UI_UID("ps1s    yyyy"),
+                2,              // TODO: fill valid LADSPA identifier (positive decimal integer)
+                LSP_LADSPA_URI("plugin_template_stereo"),
+                LSP_CLAP_URI("plugin_template_stereo"),
+                LSP_GST_UID("plugin_template_stereo"),
+            },
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
             plugin_classes,
             clap_features_stereo,
