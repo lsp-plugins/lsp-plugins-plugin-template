@@ -53,6 +53,7 @@ namespace lsp
             DRY_GAIN(0.0f),
             WET_GAIN(1.0f),
             OUT_GAIN,
+            OPT_STRING("comment", "Comment", 128),
 
             // Output controls
             METER_MINMAX("d_out", "Delay time in milliseconds", U_MSEC, 0.0f, plugin_template::DELAY_OUT_MAX_TIME),
@@ -74,6 +75,7 @@ namespace lsp
             DRY_GAIN(0.0f),
             WET_GAIN(1.0f),
             OUT_GAIN,
+            OPT_STRING("comment", "Comment", 128),
 
             // Output controls
             METER_MINMAX("d_out", "Delay time in milliseconds", U_MSEC, 0.0f, plugin_template::DELAY_OUT_MAX_TIME),
@@ -95,7 +97,7 @@ namespace lsp
             "Plugin Template", // TODO: write proper bundle name
             B_UTILITIES,
             "", // TODO: provide ID of the video on YouTube
-            "" // TODO: write plugin description, should be the same to the english version in 'bundles.json'
+            "Plugin Template" // TODO: write plugin description, should be the same to the english version in 'bundles.json'
         };
 
         const plugin_t plugin_template_mono =
