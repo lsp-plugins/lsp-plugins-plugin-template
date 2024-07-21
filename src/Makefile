@@ -58,8 +58,12 @@ ARTIFACT_OBJ_DSP        = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-dsp.o
 ARTIFACT_OBJ_SHARED     = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-shared.o
 ARTIFACT_OBJ_UI         = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-ui.o
 ARTIFACT_OBJ_TEST       = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-test.o
-ARTIFACT_OBJ            = $(ARTIFACT_OBJ_META) $(ARTIFACT_OBJ_DSP) $(ARTIFACT_OBJ_SHARED) $(ARTIFACT_OBJ_UI)
 ARTIFACT_CFLAGS         = $(foreach dep, $(DEPENDENCIES), $(if $($(dep)_CFLAGS), $($(dep)_CFLAGS)))
+ARTIFACT_OBJ            = \
+  $(ARTIFACT_OBJ_META) \
+  $(ARTIFACT_OBJ_DSP) \
+  $(ARTIFACT_OBJ_SHARED) \
+  $(call fcheck,ui,$(FEATURES),$(ARTIFACT_OBJ_UI))
 
 CXX_SRC_STUB            = $(ARTIFACT_BIN)/stub.cpp
 CXX_SRC_MAIN_META       = $(call rwildcard, main/meta, *.cpp)
