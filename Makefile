@@ -141,10 +141,13 @@ help:
 	echo "Available FEATURES:"
 	echo "  clap                      CLAP plugin format binaries"
 	echo "  doc                       Generate standalone HTML documentation"
+	echo "  gst                       GStreamer plugins"
 	echo "  jack                      Standalone JACK plugins"
 	echo "  ladspa                    LADSPA plugins"
 	echo "  lv2                       LV2 plugins"
+	echo "  ui                        Build plugins with UI"
 	echo "  vst2                      VST 2.x plugin binaries"
+	echo "  vst3                      VST 3.x plugin binaries"
 	echo "  xdg                       Desktop integration icons"
 
 	
