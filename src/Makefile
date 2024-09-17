@@ -90,7 +90,7 @@ XOBJ_TEST               = $(if $(OBJ_TEST),$(OBJ_TEST),$(OBJ_STUB))
 CXX_FILE                = $(patsubst $(ARTIFACT_BIN)/%.o,%.cpp, $(@))
 DEP_FILE                = $(patsubst %.o,%.d, $(@))
 
-CFLAGS_DEPS             = $(foreach dep, $(call uniq, $(DEPENDENCIES)), $(if $($(dep)_CFLAGS), $($(dep)_CFLAGS)))
+CFLAGS_DEPS             = $(foreach dep, $(call uniq, $(DEPENDENCIES)), $(if $($(HOST)$(dep)_CFLAGS), $($(HOST)$(dep)_CFLAGS)))
 BUILD_ALL               = $(ARTIFACT_LIB) $(ARTIFACT_SLIB) $(ARTIFACT_PC)
 
 ifeq ($(TEST), 1)
@@ -114,14 +114,14 @@ $(CXX_SRC_STUB):
 	echo "#include <stdio.h>" > $(CXX_SRC_STUB)
 
 $(OBJ_STUB): $(CXX_SRC_STUB)
-	echo "  $(CXX)  [$(ARTIFACT_NAME)] $(CXX_FILE)"
+	echo "  $($(HOST)CXX)  [$(ARTIFACT_NAME)] $(CXX_FILE)"
 	mkdir -p $(dir $@)
-	$(CXX) -o $(@) -c $(CXX_SRC_STUB) -fPIC $(CXXFLAGS) $(ARTIFACT_MFLAGS) $(EXT_FLAGS) $(INCLUDE) $(CFLAGS_DEPS) -MMD -MP -MF $(DEP_FILE) -MT $(@)
+	$($(HOST)CXX) -o $(@) -c $(CXX_SRC_STUB) -fPIC $($(HOST)CXXFLAGS) $(ARTIFACT_MFLAGS) $(EXT_FLAGS) $(INCLUDE) $(CFLAGS_DEPS) -MMD -MP -MF $(DEP_FILE) -MT $(@)
 
 $(OBJ):
-	echo "  $(CXX)  [$(ARTIFACT_NAME)] $(CXX_FILE)"
+	echo "  $($(HOST)CXX)  [$(ARTIFACT_NAME)] $(CXX_FILE)"
 	mkdir -p $(dir $@)
-	$(CXX) -o $(@) -c $(CXX_FILE) -fPIC $(CXXFLAGS) $(ARTIFACT_MFLAGS) $(EXT_FLAGS) $(INCLUDE) $(CFLAGS_DEPS) -MMD -MP -MF $(DEP_FILE) -MT $(@)
+	$($(HOST)CXX) -o $(@) -c $(CXX_FILE) -fPIC $($(HOST)CXXFLAGS) $(ARTIFACT_MFLAGS) $(EXT_FLAGS) $(INCLUDE) $(CFLAGS_DEPS) -MMD -MP -MF $(DEP_FILE) -MT $(@)
 
 # Linking targets
 $(ARTIFACT_OBJ_META): $(XOBJ_MAIN_META)
