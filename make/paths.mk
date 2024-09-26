@@ -22,6 +22,8 @@
 ifndef PREFIX
   ifeq ($(PLATFORM),Windows)
     PREFIX                     := $(BASEDIR)/INSTALL
+  else ifeq ($(CROSS_COMPILE),1)
+    PREFIX                     := $(BASEDIR)/INSTALL
   else
     PREFIX                     := /usr/local
   endif
@@ -63,6 +65,15 @@ endif
 # Binaries prefix
 ifndef INCDIR
   INCDIR                   := $(PREFIX)/include
+endif
+
+# Shared resources
+ifndef SHAREDDIR
+  ifeq ($(PLATFORM),Haiku)
+    SHAREDDIR                     := $(PREFIX)/data
+  else
+    SHAREDDIR                     := $(PREFIX)/share
+  endif
 endif
 
 # Temporary directory
