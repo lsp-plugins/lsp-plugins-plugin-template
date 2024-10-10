@@ -63,7 +63,7 @@ ARTIFACT_OBJ            = \
   $(ARTIFACT_OBJ_META) \
   $(ARTIFACT_OBJ_DSP) \
   $(ARTIFACT_OBJ_SHARED) \
-  $(call fcheck,ui,$(FEATURES),$(ARTIFACT_OBJ_UI))
+  $(call fcheck,ui,$(BUILD_FEATURES),$(ARTIFACT_OBJ_UI))
 
 CXX_SRC_STUB            = $(ARTIFACT_BIN)/stub.cpp
 CXX_SRC_MAIN_META       = $(call rwildcard, main/meta, *.cpp)
