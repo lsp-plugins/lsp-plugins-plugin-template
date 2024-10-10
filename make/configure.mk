@@ -69,9 +69,6 @@ else
   )
 endif
 
-$(info PKG_CONFIG = $(PKG_CONFIG))
-$(info HOST_PKG_CONFIG = $(HOST_PKG_CONFIG))
-
 define pkgconfig =
   $(eval name=$(1))
   
