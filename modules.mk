@@ -121,20 +121,24 @@ LIBCAIRO_VERSION           := system
 LIBCAIRO_NAME              := cairo
 LIBCAIRO_TYPE              := pkg
 
-LIBDL_VERSION              := system
-LIBDL_NAME                 := libdl
-LIBDL_TYPE                 := opt
-LIBDL_LDFLAGS              := -ldl
-
 LIBD2D1_VERSION            := system
 LIBD2D1_NAME               := libd2d1
 LIBD2D1_TYPE               := opt
 LIBD2D1_LDFLAGS            := -ld2d1
 
+LIBDL_VERSION              := system
+LIBDL_NAME                 := libdl
+LIBDL_TYPE                 := opt
+LIBDL_LDFLAGS              := -ldl
+
 LIBDWRITE_VERSION          := system
 LIBDWRITE_NAME             := libdwrite
 LIBDWRITE_TYPE             := opt
 LIBDWRITE_LDFLAGS          := -ldwrite
+
+LIBFONTCONFIG_VERSION      := system
+LIBFONTCONFIG_NAME         := fontconfig
+LIBFONTCONFIG_TYPE         := pkg
 
 LIBFREETYPE_VERSION        := system
 LIBFREETYPE_NAME           := freetype2
@@ -178,7 +182,7 @@ LIBOLE_TYPE                := opt
 LIBOLE_LDFLAGS             := -lole32
 
 LIBOPENGL32_VERSION        := system
-LIBOPENGL32_NAME           := libole
+LIBOPENGL32_NAME           := libopengl32
 LIBOPENGL32_TYPE           := opt
 LIBOPENGL32_LDFLAGS        := -lopengl32
 
