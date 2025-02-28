@@ -40,7 +40,6 @@ endif
 
 LIBDIR                     := $(PREFIX)/lib
 BINDIR                     := $(PREFIX)/bin
-SHAREDDIR                  := $(PREFIX)/share
 INCDIR                     := $(PREFIX)/include
 BUILDDIR                   := $(BASEDIR)/.build
 TARGET_BUILDDIR            := $(BUILDDIR)/target
