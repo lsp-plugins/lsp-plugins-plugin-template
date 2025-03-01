@@ -67,6 +67,7 @@ namespace lsp
 
             pBypass         = NULL;
             pGainOut        = NULL;
+            pComment        = NULL;
 
             pData           = NULL;
         }
@@ -92,10 +93,8 @@ namespace lsp
                 return;
 
             // Initialize pointers to channels and temporary buffer
-            vChannels               = reinterpret_cast<channel_t *>(ptr);
-            ptr                    += szof_channels;
-            vBuffer                 = reinterpret_cast<float *>(ptr);
-            ptr                    += buf_sz;
+            vChannels               = advance_ptr_bytes<channel_t>(ptr, szof_channels);
+            vBuffer                 = advance_ptr_bytes<float>(ptr, buf_sz);
 
             for (size_t i=0; i < nChannels; ++i)
             {
@@ -125,14 +124,14 @@ namespace lsp
 
             // Bind input audio ports
             for (size_t i=0; i<nChannels; ++i)
-                vChannels[i].pIn    = trace_port(ports[port_id++]);
+                BIND_PORT(vChannels[i].pIn);
 
             // Bind output audio ports
             for (size_t i=0; i<nChannels; ++i)
-                vChannels[i].pOut   = trace_port(ports[port_id++]);
+                BIND_PORT(vChannels[i].pOut);
 
             // Bind bypass
-            pBypass              = trace_port(ports[port_id++]);
+            BIND_PORT(pBypass);
 
             // Bind ports for audio processing channels
             for (size_t i=0; i<nChannels; ++i)
@@ -151,14 +150,15 @@ namespace lsp
                 else
                 {
                     // Initialize input controls for the first channel
-                    c->pDelay               = trace_port(ports[port_id++]);
-                    c->pDry                 = trace_port(ports[port_id++]);
-                    c->pWet                 = trace_port(ports[port_id++]);
+                    BIND_PORT(c->pDelay);
+                    BIND_PORT(c->pDry);
+                    BIND_PORT(c->pWet);
                 }
             }
 
             // Bind output gain
-            pGainOut            = trace_port(ports[port_id++]);
+            BIND_PORT(pGainOut);
+            BIND_PORT(pComment);
 
             // Bind output meters
             for (size_t i=0; i<nChannels; ++i)
@@ -172,10 +172,10 @@ namespace lsp
                     c->pOutDelay            = pc->pOutDelay;
                 }
                 else
-                    c->pOutDelay            = trace_port(ports[port_id++]);
+                    BIND_PORT(c->pOutDelay);
 
-                c->pInLevel             = trace_port(ports[port_id++]);
-                c->pOutLevel            = trace_port(ports[port_id++]);
+                BIND_PORT(c->pInLevel);
+                BIND_PORT(c->pOutLevel);
             }
         }
 
@@ -238,6 +238,18 @@ namespace lsp
                 c->sLine.set_delay(c->nDelay);
                 c->sBypass.set_bypass(bypass);
             }
+
+            // Output comment to log
+        #ifdef LSP_TRACE
+            if (pComment != NULL)
+            {
+                const char *str = pComment->buffer<char>();
+                if (str != NULL)
+                {
+                    lsp_trace("Current comment is: %s", str);
+                }
+            }
+        #endif /* LSP_TRACE */
         }
 
         void plugin_template::process(size_t samples)

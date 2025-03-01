@@ -75,6 +75,7 @@ namespace lsp
 
                 plug::IPort        *pBypass;            // Bypass
                 plug::IPort        *pGainOut;           // Output gain
+                plug::IPort        *pComment;           // Comment
 
                 uint8_t            *pData;              // Allocated data
 

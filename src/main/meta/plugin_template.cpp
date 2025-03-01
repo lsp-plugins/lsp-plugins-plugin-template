@@ -53,6 +53,7 @@ namespace lsp
             DRY_GAIN(0.0f),
             WET_GAIN(1.0f),
             OUT_GAIN,
+            OPT_STRING("comment", "Comment", 128),
 
             // Output controls
             METER_MINMAX("d_out", "Delay time in milliseconds", U_MSEC, 0.0f, plugin_template::DELAY_OUT_MAX_TIME),
@@ -74,6 +75,7 @@ namespace lsp
             DRY_GAIN(0.0f),
             WET_GAIN(1.0f),
             OUT_GAIN,
+            OPT_STRING("comment", "Comment", 128),
 
             // Output controls
             METER_MINMAX("d_out", "Delay time in milliseconds", U_MSEC, 0.0f, plugin_template::DELAY_OUT_MAX_TIME),
@@ -85,17 +87,17 @@ namespace lsp
             PORTS_END
         };
 
-        static const int plugin_classes[]       = { C_DELAY, -1 };
+        static const int plugin_classes[]       = { C_UTILITY, -1 };
         static const int clap_features_mono[]   = { CF_AUDIO_EFFECT, CF_UTILITY, CF_MONO, -1 };
         static const int clap_features_stereo[] = { CF_AUDIO_EFFECT, CF_UTILITY, CF_STEREO, -1 };
 
         const meta::bundle_t plugin_template_bundle =
         {
-            "plugin_template",
-            "Plugin Template",
+            "plugin_template", // TODO: write proper bundle identifier
+            "Plugin Template", // TODO: write proper bundle name
             B_UTILITIES,
             "", // TODO: provide ID of the video on YouTube
-            "" // TODO: write plugin description, should be the same to the english version in 'bundles.json'
+            "Plugin Template" // TODO: write plugin description, should be the same to the english version in 'bundles.json'
         };
 
         const plugin_t plugin_template_mono =
@@ -106,14 +108,17 @@ namespace lsp
             "PS1M",
             &developers::v_sadovnikov,
             "plugin_template_mono",
-            LSP_LV2_URI("plugin_template_mono"),
-            LSP_LV2UI_URI("plugin_template_mono"),
-            "xxxx",         // TODO: fill valid VST2 ID (4 letters/digits)
-            LSP_VST3_UID("ps1m    xxxx"),
-            LSP_VST3UI_UID("ps1m    xxxx"),
-            1,              // TODO: fill valid LADSPA identifier (positive decimal integer)
-            LSP_LADSPA_URI("plugin_template_mono"),
-            LSP_CLAP_URI("plugin_template_mono"),
+            {
+                LSP_LV2_URI("plugin_template_mono"),
+                LSP_LV2UI_URI("plugin_template_mono"),
+                "xxxx",         // TODO: fill valid VST2 ID (4 letters/digits)
+                LSP_VST3_UID("ps1m    xxxx"),
+                LSP_VST3UI_UID("ps1m    xxxx"),
+                1,              // TODO: fill valid LADSPA identifier (positive decimal integer)
+                LSP_LADSPA_URI("plugin_template_mono"),
+                LSP_CLAP_URI("plugin_template_mono"),
+                LSP_GST_UID("plugin_template_mono"),
+            },
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
             plugin_classes,
             clap_features_mono,
@@ -133,14 +138,17 @@ namespace lsp
             "PS1S",
             &developers::v_sadovnikov,
             "plugin_template_stereo",
-            LSP_LV2_URI("plugin_template_stereo"),
-            LSP_LV2UI_URI("plugin_template_stereo"),
-            "yyyy",         // TODO: fill valid VST2 ID (4 letters/digits)
-            LSP_VST3_UID("ps1s    yyyy"),
-            LSP_VST3UI_UID("ps1s    yyyy"),
-            2,              // TODO: fill valid LADSPA identifier (positive decimal integer)
-            LSP_LADSPA_URI("plugin_template_stereo"),
-            LSP_CLAP_URI("plugin_template_stereo"),
+            {
+                LSP_LV2_URI("plugin_template_stereo"),
+                LSP_LV2UI_URI("plugin_template_stereo"),
+                "yyyy",         // TODO: fill valid VST2 ID (4 letters/digits)
+                LSP_VST3_UID("ps1s    yyyy"),
+                LSP_VST3UI_UID("ps1s    yyyy"),
+                2,              // TODO: fill valid LADSPA identifier (positive decimal integer)
+                LSP_LADSPA_URI("plugin_template_stereo"),
+                LSP_CLAP_URI("plugin_template_stereo"),
+                LSP_GST_UID("plugin_template_stereo"),
+            },
             LSP_PLUGINS_PLUGIN_TEMPLATE_VERSION,
             plugin_classes,
             clap_features_stereo,

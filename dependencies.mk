@@ -37,20 +37,23 @@ DEPENDENCIES = \
 TEST_DEPENDENCIES = \
   LSP_TEST_FW
 
-DEFAULT_FEATURES = clap doc ladspa lv2 vst2 vst3 xdg
+DEFAULT_FEATURES = clap doc ladspa lv2 ui vst2 vst3
 
 #------------------------------------------------------------------------------
 # Linux dependencies
 LINUX_DEPENDENCIES = \
-  LIBPTHREAD \
-  LIBDL \
-  LIBSNDFILE \
   LIBCAIRO \
+  LIBDL \
+  LIBFONTCONFIG \
   LIBFREETYPE \
+  LIBGL \
+  LIBGSTREAMER_AUDIO \
+  LIBJACK \
+  LIBPTHREAD \
+  LIBRT \
+  LIBSNDFILE \
   LIBX11 \
   LIBXRANDR \
-  LIBGL \
-  LIBJACK \
   LSP_R3D_GLX_LIB
 
 LINUX_TEST_DEPENDENCIES =
@@ -58,22 +61,25 @@ LINUX_TEST_DEPENDENCIES =
 ifeq ($(PLATFORM),Linux)
   DEPENDENCIES             += $(LINUX_DEPENDENCIES)
   TEST_DEPENDENCIES        += $(LINUX_TEST_DEPENDENCIES)
-  DEFAULT_FEATURES         += jack
+  DEFAULT_FEATURES         += jack gst xdg
 endif
 
 #------------------------------------------------------------------------------
 # BSD dependencies
 BSD_DEPENDENCIES = \
-  LIBPTHREAD \
-  LIBDL \
-  LIBSNDFILE \
-  LIBICONV \
   LIBCAIRO \
+  LIBDL \
+  LIBFONTCONFIG \
   LIBFREETYPE \
+  LIBGL \
+  LIBGSTREAMER_AUDIO \
+  LIBICONV \
+  LIBJACK \
+  LIBPTHREAD \
+  LIBRT \
+  LIBSNDFILE \
   LIBX11 \
   LIBXRANDR \
-  LIBGL \
-  LIBJACK \
   LSP_R3D_GLX_LIB
 
 BSD_TEST_DEPENDENCIES = 
@@ -81,18 +87,7 @@ BSD_TEST_DEPENDENCIES =
 ifeq ($(PLATFORM),BSD)
   DEPENDENCIES             += $(BSD_DEPENDENCIES)
   TEST_DEPENDENCIES        += $(BSD_TEST_DEPENDENCIES)
-  DEFAULT_FEATURES         += jack
-endif
-
-
-ifeq ($(PLATFORM),Windows)
-  DEPENDENCIES += \
-    LIBSHLWAPI \
-    LIBWINMM \
-    LIBMSACM \
-    LIBD2D1 \
-    LIBOLE \
-    LIBWINCODEC
+  DEFAULT_FEATURES         += jack gst xdg
 endif
 
 #------------------------------------------------------------------------------
