@@ -112,6 +112,16 @@ LSP_PLUGINS_SHARED_URL_RO  := https://github.com/lsp-plugins/$(LSP_PLUGINS_SHARE
 LSP_PLUGINS_SHARED_URL_RW  := git@github.com:lsp-plugins/$(LSP_PLUGINS_SHARED_NAME).git
 
 # System libraries
+LIBAUDIOTOOLBOX_VERSION    := system
+LIBAUDIOTOOLBOX_NAME       := libaudiotoolbox
+LIBAUDIOTOOLBOX_TYPE       := opt
+LIBAUDIOTOOLBOX_LDFLAGS    := -framework AudioToolbox
+
+LIBCOREFOUNDATION_VERSION  := system
+LIBCOREFOUNDATION_NAME     := libcorefoundation
+LIBCOREFOUNDATION_TYPE     := opt
+LIBCOREFOUNDATION_LDFLAGS  := -framework CoreFoundation
+
 LIBADVAPI_VERSION          := system
 LIBADVAPI_NAME             := libadvapi32
 LIBADVAPI_TYPE             := opt
