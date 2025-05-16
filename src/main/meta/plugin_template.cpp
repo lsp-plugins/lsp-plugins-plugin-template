@@ -49,7 +49,7 @@ namespace lsp
 
             // Input controls
             BYPASS,
-            INT_CONTROL("d_in", "Delay in samples", U_SAMPLES, plugin_template::SAMPLES),
+            INT_CONTROL("d_in", "Delay in samples", "Delay", U_SAMPLES, plugin_template::SAMPLES),
             DRY_GAIN(0.0f),
             WET_GAIN(1.0f),
             OUT_GAIN,
@@ -71,7 +71,7 @@ namespace lsp
 
             // Input controls
             BYPASS,
-            INT_CONTROL("d_in", "Delay in samples", U_SAMPLES, plugin_template::SAMPLES),
+            INT_CONTROL("d_in", "Delay in samples", "Delay", U_SAMPLES, plugin_template::SAMPLES),
             DRY_GAIN(0.0f),
             WET_GAIN(1.0f),
             OUT_GAIN,
