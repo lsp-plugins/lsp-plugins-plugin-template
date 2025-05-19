@@ -7,6 +7,7 @@
 	This is a template plugin (<?= ($m == 'm') ? 'mono' : 'stereo' ?> version);
 </p>
 
+<!-- TODO: write documentation here -->
 <p><b>Controls:</b></p>
 <ul>
 	<li>
