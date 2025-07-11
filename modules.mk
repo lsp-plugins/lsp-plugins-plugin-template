@@ -117,6 +117,11 @@ LIBAUDIOTOOLBOX_NAME       := libaudiotoolbox
 LIBAUDIOTOOLBOX_TYPE       := opt
 LIBAUDIOTOOLBOX_LDFLAGS    := -framework AudioToolbox
 
+LIBCOCOA_VERSION           := system
+LIBCOCOA_NAME              := libcocoa
+LIBCOCOA_TYPE              := opt
+LIBCOCOA_LDFLAGS           := -framework Cocoa
+
 LIBCOREFOUNDATION_VERSION  := system
 LIBCOREFOUNDATION_NAME     := libcorefoundation
 LIBCOREFOUNDATION_TYPE     := opt
