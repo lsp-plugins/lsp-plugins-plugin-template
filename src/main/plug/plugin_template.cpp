@@ -28,13 +28,13 @@
 
 #include <private/plugins/plugin_template.h>
 
-/* The size of temporary buffer for audio processing */
-#define BUFFER_SIZE         0x1000U
-
 namespace lsp
 {
     namespace plugins
     {
+        /* The size of temporary buffer for audio processing */
+        static constexpr size_t BUFFER_SIZE             = 0x200;
+
         //---------------------------------------------------------------------
         // Plugin factory
         static const meta::plugin_t *plugins[] =
