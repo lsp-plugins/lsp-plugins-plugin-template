@@ -28,13 +28,13 @@
 
 #include <private/plugins/plugin_template.h>
 
-/* The size of temporary buffer for audio processing */
-#define BUFFER_SIZE         0x1000U
-
 namespace lsp
 {
     namespace plugins
     {
+        /* The size of temporary buffer for audio processing */
+        static constexpr size_t BUFFER_SIZE             = 0x200;
+
         //---------------------------------------------------------------------
         // Plugin factory
         static const meta::plugin_t *plugins[] =
@@ -275,18 +275,18 @@ namespace lsp
                 // it gets processed by the dspu::Bypass processor.
                 for (size_t n=0; n<samples; )
                 {
-                    size_t count            = lsp_min(samples - n, BUFFER_SIZE);
+                    const size_t count      = lsp_min(samples - n, BUFFER_SIZE);
 
                     // Pre-process signal (fill buffer)
-                    c->sLine.process_ramping(vBuffer, in, c->fWetGain, c->nDelay, samples);
+                    c->sLine.process_ramping(vBuffer, in, c->fWetGain, c->nDelay, count);
 
                     // Apply 'dry' control
                     if (c->fDryGain > 0.0f)
                         dsp::fmadd_k3(vBuffer, in, c->fDryGain, count);
 
                     // Compute the gain of input and output signal.
-                    in_gain             = lsp_max(in_gain, dsp::abs_max(in, samples));
-                    out_gain            = lsp_max(out_gain, dsp::abs_max(vBuffer, samples));
+                    in_gain                 = lsp_max(in_gain, dsp::abs_max(in, count));
+                    out_gain                = lsp_max(out_gain, dsp::abs_max(vBuffer, count));
 
                     // Process the
                     //  - dry (unprocessed) signal stored in 'in'
@@ -295,9 +295,9 @@ namespace lsp
                     c->sBypass.process(out, in, vBuffer, count);
 
                     // Increment pointers
-                    in          +=  count;
-                    out         +=  count;
-                    n           +=  count;
+                    in                     +=  count;
+                    out                    +=  count;
+                    n                      +=  count;
                 }
 
                 // Update meters
