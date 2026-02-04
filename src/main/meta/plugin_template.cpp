@@ -20,6 +20,7 @@
  */
 
 #include <lsp-plug.in/plug-fw/meta/ports.h>
+#include <lsp-plug.in/plug-fw/meta/registry.h>
 #include <lsp-plug.in/shared/meta/developers.h>
 #include <private/meta/plugin_template.h>
 
@@ -129,6 +130,7 @@ namespace lsp
             mono_plugin_port_groups,
             &plugin_template_bundle
         };
+        LSP_REGISTER_METADATA(plugin_template_mono);
 
         const plugin_t plugin_template_stereo =
         {
@@ -159,6 +161,7 @@ namespace lsp
             stereo_plugin_port_groups,
             &plugin_template_bundle
         };
+        LSP_REGISTER_METADATA(plugin_template_stereo);
     } /* namespace meta */
 } /* namespace lsp */
 
