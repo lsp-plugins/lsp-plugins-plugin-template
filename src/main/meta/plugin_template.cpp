@@ -125,7 +125,7 @@ namespace lsp
             clap_features_mono,
             E_DUMP_STATE,
             plugin_template_mono_ports,
-            "template/plugin.xml",
+            "plugins/template/plugin.xml",
             NULL,
             mono_plugin_port_groups,
             &plugin_template_bundle
@@ -156,7 +156,7 @@ namespace lsp
             clap_features_stereo,
             E_DUMP_STATE,
             plugin_template_stereo_ports,
-            "template/plugin.xml",
+            "plugins/template/plugin.xml",
             NULL,
             stereo_plugin_port_groups,
             &plugin_template_bundle
