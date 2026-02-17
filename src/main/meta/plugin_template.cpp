@@ -128,7 +128,8 @@ namespace lsp
             "plugins/template/plugin.xml",
             NULL,
             mono_plugin_port_groups,
-            &plugin_template_bundle
+            &plugin_template_bundle,
+            2
         };
         LSP_REGISTER_METADATA(plugin_template_mono);
 
@@ -159,7 +160,8 @@ namespace lsp
             "plugins/template/plugin.xml",
             NULL,
             stereo_plugin_port_groups,
-            &plugin_template_bundle
+            &plugin_template_bundle,
+            1
         };
         LSP_REGISTER_METADATA(plugin_template_stereo);
     } /* namespace meta */
