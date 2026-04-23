@@ -100,18 +100,18 @@ testconfig: CONFIG_FLAGS=TEST=1
 devel: CONFIG_FLAGS=TEST=1 DEVEL=1
 
 config testconfig devel:
-	$(MAKE) -f "make/configure.mk" config VERBOSE="$(VERBOSE)" CONFIG="$(CONFIG)" -$(MAKEFLAGS)
+	$(MAKE) -f "$(BASEDIR)/make/configure.mk" config VERBOSE="$(VERBOSE)" CONFIG="$(CONFIG)" -$(MAKEFLAGS)
 
 # Release-related targets
 .PHONY: distsrc
 distsrc:
 	echo "Building source code archive"
 	mkdir -p "$(DISTSRC)/modules"
-	$(MAKE) -f "make/modules.mk" tree VERBOSE="$(VERBOSE)" BASEDIR="$(BASEDIR)" MODULES="$(DISTSRC)/modules" TREE="1"
+	$(MAKE) -f "make/modules.mk" tree TREE="1" BUILD_FEATURES="$(FEATURES)" VERBOSE="$(VERBOSE)" BASEDIR="$(BASEDIR)" MODULES="$(DISTSRC)/modules"
 	$(if $(DISTSRC_DIRS), cp -R $(DISTSRC_DIRS) "$(DISTSRC)/")
 	$(if $(DISTSRC_FILES), cp $(DISTSRC_FILES) "$(DISTSRC)/")
-	find "$(DISTSRC)" -iname '.git' | xargs rm -rf {}
-	find "$(DISTSRC)" -iname '.gitignore' | xargs rm -rf {}
+	find "$(DISTSRC)" -iname '.git' | xargs -exec rm -rf {}
+	find "$(DISTSRC)" -iname '.gitignore' | xargs -exec rm -rf {}
 	tar -C $(DISTSRC_PATH) -czf "$(BUILDDIR)/$(ARTIFACT_NAME)-src-$(ARTIFACT_VERSION).tar.gz" "$(ARTIFACT_NAME)"
 	echo "Created archive: $(BUILDDIR)/$(ARTIFACT_NAME)-src-$(ARTIFACT_VERSION).tar.gz"
 	rm -rf $(DISTSRC_PATH)
@@ -139,13 +139,14 @@ help:
 	$(MAKE) -f "$(BASEDIR)/make/configure.mk" $(@) VERBOSE="$(VERBOSE)"
 	echo ""
 	echo "Available FEATURES:"
-	echo "  clap                      CLAP plugin format binaries"
+	echo "  clap                      CLAP plugins"
 	echo "  doc                       Generate standalone HTML documentation"
 	echo "  gst                       GStreamer plugins"
-	echo "  jack                      Standalone JACK plugins"
+	echo "  jack                      JACK audio backend for standalone plugins"
 	echo "  ladspa                    LADSPA plugins"
+	echo "  launcher                  Build launcher application for standalone plugin applications"
 	echo "  lv2                       LV2 plugins"
-	echo "  ui                        Build plugins with UI"
+	echo "  standalone                Standalone plugin applications"
 	echo "  vst2                      VST 2.x plugin binaries"
 	echo "  vst3                      VST 3.x plugin binaries"
 	echo "  xdg                       Desktop integration icons"
