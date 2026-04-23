@@ -30,7 +30,7 @@ jobs:
         run: pacman --noconfirm -Syu alsa-lib base-devel cairo carla git glibc-debug hicolor-icon-theme jack2 jq libglvnd libsndfile libx11 libxrandr lv2lint php valgrind gstreamer gst-plugins-base
       - uses: actions/checkout@v3
       - name: Configure project
-        run: make config STRICT=1 VERBOSE=1 FEATURES='clap doc jack gst ladspa lv2 ui vst2 vst3 xdg' PREFIX=/usr
+        run: make config FEATURES='strict clap doc gst jack ladspa lv2 standalone ui vst2 vst3 xdg' PREFIX=/usr
       - name: Fetch project dependencies
         run: make fetch
       - name: Build project
@@ -75,7 +75,7 @@ jobs:
         run: pacman --noconfirm -Syu alsa-lib base-devel cairo carla git glibc-debug hicolor-icon-theme jack2 jq libglvnd libsndfile libx11 libxrandr php valgrind gstreamer gst-plugins-base
       - uses: actions/checkout@v3
       - name: Configure project
-        run: make config STRICT=1 DEBUG=1 VERBOSE=1 ASAN=1 FEATURES='clap jack gst ladspa ui lv2 vst2 vst3' PREFIX=/usr
+        run: make config FEATURES='strict debug clap gst jack ladspa lv2 standalone ui vst2 vst3 xdg' PREFIX=/usr
       - name: Fetch project dependencies
         run: make fetch
       - name: Build project
@@ -103,7 +103,7 @@ jobs:
             /usr/lib/carla/carla-bridge-native vst2 "${_binary}" "" 1>/dev/null; \
           done
 
-  arch_linux_valgrind:
+  arch_linux_debug:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
@@ -116,7 +116,7 @@ jobs:
         run: pacman --noconfirm -Syu alsa-lib base-devel cairo carla git glibc-debug hicolor-icon-theme jack2 jq libglvnd libsndfile libx11 libxrandr php valgrind gstreamer gst-plugins-base
       - uses: actions/checkout@v3
       - name: Configure project
-        run: make config STRICT=1 DEBUG=1 VERBOSE=1 FEATURES='clap jack gst ladspa lv2 ui vst2 vst3' PREFIX=/usr
+        run: make config VERBOSE=1 FEATURES='strict debug clap jack gst ladspa lv2 ui vst2 vst3 xdg' PREFIX=/usr
       - name: Fetch project dependencies
         run: make fetch
       - name: Build project
@@ -150,7 +150,7 @@ jobs:
         run: zypper --non-interactive --no-gpg-checks in tar gzip gcc gcc-c++ glibc-locale git make php valgrind libX11-devel libXrandr-devel Mesa-libGL-devel libjack-devel cairo-devel freetype2-devel libsndfile-devel gstreamer-devel gstreamer-plugins-base-devel
       - uses: actions/checkout@v3
       - name: Configure project
-        run: make config STRICT=1 VERBOSE=1 FEATURES='clap doc jack gst ladspa lv2 ui vst2 vst3 xdg' PREFIX=/usr
+        run: make config FEATURES='strict clap doc gst jack ladspa lv2 standalone ui vst2 vst3 xdg' PREFIX=/usr
       - name: Fetch project dependencies
         run: make fetch
       - name: Build project
@@ -167,7 +167,7 @@ jobs:
         run: zypper --non-interactive --no-gpg-checks in tar gzip gcc gcc-c++ glibc-locale glibc-gconv-modules-extra clang lld git make php8-cli valgrind libstdc++-devel libX11-devel libXrandr-devel Mesa-libGL-devel libjack-devel cairo-devel freetype2-devel libsndfile-devel gstreamer-devel gstreamer-plugins-base-devel
       - uses: actions/checkout@v3
       - name: Configure project
-        run: make config CC=clang CXX=clang++ STRICT=1 VERBOSE=1 FEATURES='clap doc jack gst ladspa lv2 ui vst2 vst3 xdg' PREFIX=/usr
+        run: make config CC=clang CXX=clang++ FEATURES='strict clap doc gst jack ladspa lv2 standalone ui vst2 vst3 xdg' PREFIX=/usr
       - name: Fetch project dependencies
         run: make fetch
       - name: Build project
@@ -186,7 +186,26 @@ jobs:
         run: apt-get -y install gcc g++ git make php-cli pkg-config valgrind libx11-dev libxrandr-dev libjack-dev libcairo2-dev libgl-dev libfreetype6-dev libsndfile1-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
       - uses: actions/checkout@v3
       - name: Configure project
-        run: make config STRICT=1 VERBOSE=1 FEATURES='clap doc jack gst ladspa lv2 ui vst2 vst3 xdg' PREFIX=/usr
+        run: make config FEATURES='strict clap doc gst jack ladspa lv2 standalone ui vst2 vst3 xdg' PREFIX=/usr
+      - name: Fetch project dependencies
+        run: make fetch
+      - name: Build project
+        run: make VERBOSE=1
+      - name: Install binaries
+        run: make install
+
+  debian_stable_no_ui:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:stable
+    steps:
+      - name: Update repositories
+        run: apt-get update
+      - name: Install dependencies
+        run: apt-get -y install gcc g++ git make php-cli pkg-config valgrind libx11-dev libxrandr-dev libjack-dev libcairo2-dev libgl-dev libfreetype6-dev libsndfile1-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+      - uses: actions/checkout@v3
+      - name: Configure project
+        run: make config FEATURES='strict clap doc gst jack ladspa lv2 standalone vst2 vst3' PREFIX=/usr
       - name: Fetch project dependencies
         run: make fetch
       - name: Build project
@@ -213,7 +232,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Configure project
         shell: msys2 {0}
-        run: make config STRICT=1 VERBOSE=1 FEATURES='clap ladspa lv2 ui vst2 vst3'
+        run: make config FEATURES='strict clap ladspa lv2 ui vst2 vst3'
       - name: Fetch project dependencies
         shell: msys2 {0}
         run: make fetch
@@ -230,7 +249,7 @@ jobs:
         run: brew install make pkgconf cairo freetype
       - uses: actions/checkout@v3
       - name: Configure project
-        run: gmake config STRICT=1 VERBOSE=1 FEATURES='lv2 ui'
+        run: gmake config FEATURES='strict lv2 ui'
       - name: Fetch project dependencies
         run: gmake fetch
       - name: Build project
