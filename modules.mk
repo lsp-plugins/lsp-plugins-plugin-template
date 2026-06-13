@@ -229,7 +229,7 @@ LIBPTHREAD_TYPE                         := opt
 LIBPTHREAD_LDFLAGS                      := -lpthread
 
 LIBRT_VERSION                           := system
-LIBRT_NAME                             := librt
+LIBRT_NAME                              := librt
 LIBRT_TYPE                              := opt
 LIBRT_LDFLAGS                           := -lrt
 
