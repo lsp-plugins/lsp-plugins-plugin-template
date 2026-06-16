@@ -98,7 +98,7 @@ namespace lsp
 
             for (size_t i=0; i < nChannels; ++i)
             {
-                channel_t *c            = &vChannels[i];
+                channel_t * const c     = &vChannels[i];
 
                 // Construct in-place DSP processors
                 c->sLine.construct();
@@ -136,11 +136,11 @@ namespace lsp
             // Bind ports for audio processing channels
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t *c            = &vChannels[i];
+                channel_t * const c     = &vChannels[i];
 
                 if (i > 0)
                 {
-                    channel_t *pc           = &vChannels[0];
+                    channel_t * const pc    = &vChannels[0];
 
                     // Share some controls across all channels
                     c->pDelay               = pc->pDelay;
@@ -163,11 +163,11 @@ namespace lsp
             // Bind output meters
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t *c            = &vChannels[i];
+                channel_t * const c     = &vChannels[i];
 
                 if (i > 0)
                 {
-                    channel_t *pc           = &vChannels[0];
+                    channel_t * const pc    = &vChannels[0];
                     // Share some meters across all channels
                     c->pOutDelay            = pc->pOutDelay;
                 }
@@ -192,7 +192,7 @@ namespace lsp
             {
                 for (size_t i=0; i<nChannels; ++i)
                 {
-                    channel_t *c    = &vChannels[i];
+                    channel_t * const c     = &vChannels[i];
                     c->sBypass.destroy();
                     c->sLine.destroy();
                 }
@@ -214,7 +214,7 @@ namespace lsp
             // Update sample rate for the bypass processors
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t *c    = &vChannels[i];
+                channel_t * const c     = &vChannels[i];
                 c->sLine.init(dspu::millis_to_samples(sr, meta::plugin_template::DELAY_OUT_MAX_TIME));
                 c->sBypass.init(sr);
             }
@@ -222,12 +222,12 @@ namespace lsp
 
         void plugin_template::update_settings()
         {
-            float out_gain          = pGainOut->value();
-            bool bypass             = pBypass->value() >= 0.5f;
+            const float out_gain    = pGainOut->value();
+            const bool bypass       = pBypass->value() >= 0.5f;
 
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t *c            = &vChannels[i];
+                channel_t * const c     = &vChannels[i];
 
                 // Store the parameters for each processor
                 c->fDryGain             = c->pDry->value() * out_gain;
@@ -305,7 +305,7 @@ namespace lsp
                 c->pOutLevel->set_value(out_gain);
 
                 // Output the delay value in milliseconds
-                float millis = dspu::samples_to_millis(fSampleRate, c->nDelay);
+                const float millis      = dspu::samples_to_millis(fSampleRate, c->nDelay);
                 c->pOutDelay->set_value(millis);
             }
         }
@@ -319,7 +319,7 @@ namespace lsp
             v->begin_array("vChannels", vChannels, nChannels);
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t *c            = &vChannels[i];
+                channel_t * const c         = &vChannels[i];
 
                 v->begin_object(c, sizeof(channel_t));
                 {
@@ -348,6 +348,7 @@ namespace lsp
 
             v->write("pBypass", pBypass);
             v->write("pGainOut", pGainOut);
+            v->write("pComment", pComment);
 
             v->write("pData", pData);
         }
