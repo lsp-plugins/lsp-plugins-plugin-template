@@ -20,6 +20,7 @@
  */
 
 #include <lsp-plug.in/plug-fw/meta/ports.h>
+#include <lsp-plug.in/plug-fw/meta/registry.h>
 #include <lsp-plug.in/shared/meta/developers.h>
 #include <private/meta/plugin_template.h>
 
@@ -124,11 +125,13 @@ namespace lsp
             clap_features_mono,
             E_DUMP_STATE,
             plugin_template_mono_ports,
-            "template/plugin.xml",
+            "plugins/template/plugin.xml",
             NULL,
             mono_plugin_port_groups,
-            &plugin_template_bundle
+            &plugin_template_bundle,
+            2
         };
+        LSP_REGISTER_METADATA(plugin_template_mono);
 
         const plugin_t plugin_template_stereo =
         {
@@ -154,11 +157,13 @@ namespace lsp
             clap_features_stereo,
             E_DUMP_STATE,
             plugin_template_stereo_ports,
-            "template/plugin.xml",
+            "plugins/template/plugin.xml",
             NULL,
             stereo_plugin_port_groups,
-            &plugin_template_bundle
+            &plugin_template_bundle,
+            1
         };
+        LSP_REGISTER_METADATA(plugin_template_stereo);
     } /* namespace meta */
 } /* namespace lsp */
 

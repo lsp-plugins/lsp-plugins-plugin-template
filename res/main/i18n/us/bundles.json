@@ -1,7 +1,12 @@
 {
 	"plugin_template": {
-		"name": "Plugin Template",
-		"description": "TODO: write description"
+		"description": "TODO: write description",
+		"name": "Plugin Template"
+	},
+	
+	"launcher": {
+		"plugin_template_mono": "Mono",
+		"plugin_template_stereo": "Stereo"		
 	}
 }
 

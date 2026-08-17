@@ -22,7 +22,7 @@
 ifndef PREFIX
   ifeq ($(PLATFORM),Windows)
     PREFIX                     := $(BASEDIR)/INSTALL
-  else ifeq ($(CROSS_COMPILE),1)
+  else ifeq ($(call fcheck,crosscompile,$(BUILD_FEATURES),ON),ON)
     PREFIX                     := $(BASEDIR)/INSTALL
   else
     PREFIX                     := /usr/local
@@ -43,7 +43,7 @@ BINDIR                     := $(PREFIX)/bin
 INCDIR                     := $(PREFIX)/include
 BUILDDIR                   := $(BASEDIR)/.build
 TARGET_BUILDDIR            := $(BUILDDIR)/target
-ifeq ($(CROSS_COMPILE),1)
+ifeq ($(call fcheck,crosscompile,$(BUILD_FEATURES),ON),ON)
   HOST_BUILDDIR              := $(BUILDDIR)/host
 else
   HOST_BUILDDIR              := $(TARGET_BUILDDIR)

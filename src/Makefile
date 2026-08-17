@@ -36,7 +36,7 @@ include $(MODDIR)/make/functions.mk
 include $(ROOTDIR)/dependencies.mk
 include $(ROOTDIR)/plugins.mk
 
-ifeq ($(TEST),1)
+ifeq ($(call fcheck,test,$(BUILD_FEATURES),ON),ON)
   UNIQ_DEPENDENCIES      := $(call uniq, $(DEPENDENCIES) $(ARTIFACT_ID) $(TEST_DEPENDENCIES))
 else
   UNIQ_DEPENDENCIES      := $(call uniq, $(DEPENDENCIES) $(ARTIFACT_ID))
@@ -58,12 +58,12 @@ ARTIFACT_OBJ_DSP        = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-dsp.o
 ARTIFACT_OBJ_SHARED     = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-shared.o
 ARTIFACT_OBJ_UI         = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-ui.o
 ARTIFACT_OBJ_TEST       = $(ARTIFACT_BIN)/$($(ARTIFACT_ID)_NAME)-test.o
-ARTIFACT_CFLAGS         = $(foreach dep, $(DEPENDENCIES), $(if $($(dep)_CFLAGS), $($(dep)_CFLAGS)))
 ARTIFACT_OBJ            = \
   $(ARTIFACT_OBJ_META) \
   $(ARTIFACT_OBJ_DSP) \
   $(ARTIFACT_OBJ_SHARED) \
   $(call fcheck,ui,$(BUILD_FEATURES),$(ARTIFACT_OBJ_UI))
+ARTIFACT_CFLAGS         = $(foreach dep, $(DEPENDENCIES), $(if $($(dep)_CFLAGS), $($(dep)_CFLAGS)))
 
 CXX_SRC_STUB            = $(ARTIFACT_BIN)/stub.cpp
 CXX_SRC_MAIN_META       = $(call rwildcard, main/meta, *.cpp)
@@ -93,7 +93,7 @@ DEP_FILE                = $(patsubst %.o,%.d, $(@))
 CFLAGS_DEPS             = $(foreach dep, $(call uniq, $(DEPENDENCIES)), $(if $($(HOST)$(dep)_CFLAGS), $($(HOST)$(dep)_CFLAGS)))
 BUILD_ALL               = $(ARTIFACT_LIB) $(ARTIFACT_SLIB) $(ARTIFACT_PC)
 
-ifeq ($(TEST), 1)
+ifeq ($(call fcheck,test,$(BUILD_FEATURES),ON),ON)
   CXX_SRC                += $(CXX_SRC_TEST)
   ARTIFACT_OBJ           += $(ARTIFACT_OBJ_TEST)
   DEPENDENCIES           += $(TEST_DEPENDENCIES)
@@ -104,7 +104,7 @@ CXX_DEPFILE             = $(patsubst $(ARTIFACT_BIN)/%.d,%.cpp,$(@))
 CXX_DEPTARGET           = $(patsubst $(ARTIFACT_BIN)/%.d,%.o,$(@))
 
 .DEFAULT_GOAL = all
-.PHONY: compile all install uninstall package
+.PHONY: all compile bundle install uninstall package
 
 # Compilation targets
 compile: $(ARTIFACT_OBJ)
@@ -145,7 +145,7 @@ $(ARTIFACT_OBJ_TEST): $(XOBJ_TEST)
 	$($(HOST)LD) -o $(ARTIFACT_OBJ_TEST) $($(HOST)LDFLAGS) $(XOBJ_TEST)
 
 # Deletaged targets
-all install uninstall package:
+all bundle install uninstall package:
 	$(MAKE) -C "$(LSP_PLUGIN_FW_PATH)" $(@) VERBOSE="$(VERBOSE)" CONFIG="$(CONFIG)"
 
 # Dependencies
