@@ -83,44 +83,44 @@ namespace lsp
             Module::init(wrapper, ports);
 
             // Estimate the number of bytes to allocate
-            size_t szof_channels    = align_size(sizeof(channel_t) * nChannels, OPTIMAL_ALIGN);
-            size_t buf_sz           = BUFFER_SIZE * sizeof(float);
-            size_t alloc            = szof_channels + buf_sz;
+            const size_t szof_channels  = align_size(sizeof(channel_t) * nChannels, OPTIMAL_ALIGN);
+            const size_t buf_sz         = BUFFER_SIZE * sizeof(float);
+            const size_t alloc          = szof_channels + buf_sz;
 
             // Allocate memory-aligned data
-            uint8_t *ptr            = alloc_aligned<uint8_t>(pData, alloc, OPTIMAL_ALIGN);
+            uint8_t *ptr                = alloc_aligned<uint8_t>(pData, alloc, OPTIMAL_ALIGN);
             if (ptr == NULL)
                 return;
 
             // Initialize pointers to channels and temporary buffer
-            vChannels               = advance_ptr_bytes<channel_t>(ptr, szof_channels);
-            vBuffer                 = advance_ptr_bytes<float>(ptr, buf_sz);
+            vChannels                   = advance_ptr_bytes<channel_t>(ptr, szof_channels);
+            vBuffer                     = advance_ptr_bytes<float>(ptr, buf_sz);
 
             for (size_t i=0; i < nChannels; ++i)
             {
-                channel_t * const c     = &vChannels[i];
+                channel_t * const c         = &vChannels[i];
 
                 // Construct in-place DSP processors
                 c->sLine.construct();
                 c->sBypass.construct();
 
                 // Initialize fields
-                c->nDelay               = 0;
-                c->fDryGain             = 0.0f;
-                c->fWetGain             = 0.0f;
+                c->nDelay                   = 0;
+                c->fDryGain                 = 0.0f;
+                c->fWetGain                 = 0.0f;
 
-                c->pIn                  = NULL;
-                c->pOut                 = NULL;
-                c->pDelay               = NULL;
-                c->pDry                 = NULL;
-                c->pWet                 = NULL;
+                c->pIn                      = NULL;
+                c->pOut                     = NULL;
+                c->pDelay                   = NULL;
+                c->pDry                     = NULL;
+                c->pWet                     = NULL;
 
-                c->pOutDelay            = NULL;
+                c->pOutDelay                = NULL;
             }
 
             // Bind ports
             lsp_trace("Binding ports");
-            size_t port_id      = 0;
+            size_t port_id              = 0;
 
             // Bind input audio ports
             for (size_t i=0; i<nChannels; ++i)
@@ -136,16 +136,16 @@ namespace lsp
             // Bind ports for audio processing channels
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t * const c     = &vChannels[i];
+                channel_t * const c         = &vChannels[i];
 
                 if (i > 0)
                 {
-                    channel_t * const pc    = &vChannels[0];
+                    channel_t * const pc        = &vChannels[0];
 
                     // Share some controls across all channels
-                    c->pDelay               = pc->pDelay;
-                    c->pDry                 = pc->pDry;
-                    c->pWet                 = pc->pWet;
+                    c->pDelay                   = pc->pDelay;
+                    c->pDry                     = pc->pDry;
+                    c->pWet                     = pc->pWet;
                 }
                 else
                 {
@@ -163,13 +163,13 @@ namespace lsp
             // Bind output meters
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t * const c     = &vChannels[i];
+                channel_t * const c         = &vChannels[i];
 
                 if (i > 0)
                 {
-                    channel_t * const pc    = &vChannels[0];
+                    channel_t * const pc        = &vChannels[0];
                     // Share some meters across all channels
-                    c->pOutDelay            = pc->pOutDelay;
+                    c->pOutDelay                = pc->pOutDelay;
                 }
                 else
                     BIND_PORT(c->pOutDelay);
@@ -257,7 +257,7 @@ namespace lsp
             // Process each channel independently
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t *c            = &vChannels[i];
+                channel_t * const c     = &vChannels[i];
 
                 // Get input and output buffers
                 const float *in         = c->pIn->buffer<float>();
@@ -319,7 +319,7 @@ namespace lsp
             v->begin_array("vChannels", vChannels, nChannels);
             for (size_t i=0; i<nChannels; ++i)
             {
-                channel_t * const c         = &vChannels[i];
+                const channel_t * const c   = &vChannels[i];
 
                 v->begin_object(c, sizeof(channel_t));
                 {
